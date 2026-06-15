@@ -1,0 +1,53 @@
+---
+const navItems = [
+  { href: "#story", label: "Our Practice" },
+  { href: "#choose", label: "Procedures" },
+  { href: "#faq", label: "Patient Information" },
+  { href: "#reviews", label: "Leave a Review" },
+  { href: "#contact", label: "Contact" },
+  { href: "#contact", label: "Payment Methods" },
+];
+---
+
+<header class="sticky top-0 inset-x-0 z-50 px-3 py-3 sm:px-4">
+  <div class="glow mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-3xl bg-porcelain/95 px-4 py-3 backdrop-blur sm:rounded-4xl sm:px-5 lg:gap-3 lg:px-5 xl:gap-6 xl:px-7">
+    <a href="#" class="flex min-w-0 shrink-0 items-center" aria-label="Eastland Family Dental home">
+      <img
+        src="/images/eastland-logo.png"
+        alt="Eastland Family Dental logo"
+        width="500"
+        height="500"
+        class="h-20 w-auto max-w-[235px] shrink-0 object-contain sm:h-24 sm:max-w-[315px] lg:h-14 lg:max-w-[145px] xl:h-16 xl:max-w-[190px]"
+      />
+    </a>
+
+    <nav class="hidden min-w-0 flex-1 items-center justify-center gap-0.5 lg:flex xl:gap-1.5" aria-label="Primary navigation">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class="whitespace-nowrap rounded-full px-1.5 py-2 text-[11px] font-bold text-body transition hover:bg-air hover:text-navy xl:px-3 xl:text-sm"
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden shrink-0 items-center justify-end lg:flex">
+      <a href="#contact" class="whitespace-nowrap rounded-full bg-navy px-4 py-3 text-xs font-bold text-white shadow-lg shadow-navy/15 transition hover:bg-blue xl:px-7 xl:text-base">Book Appointment</a>
+    </div>
+
+    <button id="menuC" class="shrink-0 rounded-full bg-air p-3 lg:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobileC" type="button">
+      <span class="block h-0.5 w-6 bg-navy" aria-hidden="true"></span>
+      <span class="mt-1.5 block h-0.5 w-6 bg-navy" aria-hidden="true"></span>
+      <span class="mt-1.5 block h-0.5 w-6 bg-navy" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div id="mobileC" class="glow mx-auto mt-3 hidden max-w-7xl rounded-4xl bg-porcelain/95 p-5 backdrop-blur lg:hidden">
+    {navItems.map((item) => (
+      <a class="block py-3 font-semibold text-body" href={item.href}>{item.label}</a>
+    ))}
+    <a class="mt-3 block rounded-full bg-air py-3 text-center font-bold text-navy" href="tel:18167957007">(816) 795-7007</a>
+    <a class="mt-3 block rounded-full bg-navy py-3 text-center font-bold text-white" href="#contact">Book Appointment</a>
+  </div>
+</header>

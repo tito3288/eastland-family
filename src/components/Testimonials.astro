@@ -1,0 +1,24 @@
+---
+const testimonials = [
+  "“The team made my visit feel relaxed and helped me understand what came next.”",
+  "“A convenient family dental office with thoughtful care and friendly communication.”",
+];
+---
+
+<section id="reviews" class="bg-air px-4 py-14 sm:py-16">
+  <div class="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[.8fr_1.2fr]">
+    <div class="reveal reveal-left">
+      <p class="text-xs font-bold tracking-[.22em] text-eucalyptus uppercase sm:text-sm">Patient words</p>
+      <h2 class="mt-4 font-heading text-4xl leading-tight md:text-5xl">Kind, clear, and family-focused.</h2>
+    </div>
+    <div class="grid gap-5 md:grid-cols-2">
+      {testimonials.map((quote, index) => (
+        <article class="reveal glow rounded-4xl bg-white p-6 sm:rounded-5xl sm:p-8" style={`--reveal-delay:${index === 0 ? "80ms" : "160ms"}`}>
+          <div class="text-blue" aria-label="Five-star rating"><span aria-hidden="true">★★★★★</span></div>
+          <p class="mt-5 text-lg sm:text-xl">{quote}</p>
+          <p class="mt-5 text-sm text-caption">Representative patient feedback</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

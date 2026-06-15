@@ -1,0 +1,21 @@
+---
+const trustItems = [
+  "Family-friendly care",
+  "Advanced capabilities",
+  "Gentle appointments",
+  "Comprehensive treatment",
+];
+---
+
+<section class="px-4 pb-8" aria-label="Practice highlights">
+  <div class="reveal reveal-zoom mx-auto max-w-7xl overflow-hidden rounded-4xl bg-navy px-5 py-4 text-white sm:rounded-full">
+    <div class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-center text-sm font-semibold md:text-base sm:gap-x-8">
+      {trustItems.map((item, index) => (
+        <>
+          <span>{item}</span>
+          {index < trustItems.length - 1 && <span class="hidden sm:inline" aria-hidden="true">•</span>}
+        </>
+      ))}
+    </div>
+  </div>
+</section>

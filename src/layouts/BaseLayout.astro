@@ -1,0 +1,48 @@
+---
+import "../styles/global.css";
+import { theme } from "../lib/theme.config";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  image?: string;
+}
+
+const {
+  title = "Eastland Family Dental | Smile Wellness in Independence, MO",
+  description = "Eastland Family Dental offers preventive, restorative, emergency, and cosmetic dental care for families and adults in Independence, MO.",
+  canonical = "https://eastlandfamilydental.com/",
+  image = "/images/hero-dental-care.jpg",
+} = Astro.props;
+
+const ogImage = new URL(image, canonical).toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="theme-color" content={theme.colors.navy} />
+    <script is:inline>document.documentElement.classList.add("js");</script>
+  </head>
+  <body class="bg-porcelain text-navy font-body antialiased">
+    <slot />
+  </body>
+</html>
