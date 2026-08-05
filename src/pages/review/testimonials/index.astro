@@ -1,0 +1,47 @@
+---
+import InteriorLayout from "../../../layouts/InteriorLayout.astro";
+
+const testimonials = [
+  {
+    quote: "“Dr. Ashworth is friendly, funny, and educates his patients well.”",
+    name: "Katie W.",
+  },
+  {
+    quote: "“All the associates and hygienists were so friendly and very efficient.”",
+    name: "Kelly Moore",
+  },
+  {
+    quote: "“Blown away by the care I received.”",
+    name: "Paige Zulauf",
+  },
+  {
+    quote: "“The entire staff was welcoming and great.”",
+    name: "Shawn Force",
+  },
+];
+---
+
+<InteriorLayout
+  title="Patient Testimonials | Eastland Family Dental"
+  description="Read published patient experiences with Eastland Family Dental in Independence, MO."
+  path="/review/testimonials/"
+  eyebrow="Patient experiences"
+  heading="Kind words from our patients."
+  intro="These excerpts are drawn from testimonials already published by Eastland Family Dental."
+>
+  <section class="bg-air px-4 py-12 sm:py-16">
+    <div class="mx-auto grid max-w-7xl gap-5 md:grid-cols-2">
+      {testimonials.map((testimonial, index) => (
+        <article class="reveal glow flex min-h-64 flex-col rounded-4xl bg-white p-6 sm:rounded-5xl sm:p-8" style={`--reveal-delay:${index % 2 === 0 ? "40ms" : "100ms"}`}>
+          <p class="text-xs font-bold tracking-[.18em] text-blue uppercase">Published patient testimonial</p>
+          <blockquote class="mt-5 flex-1 font-heading text-2xl leading-relaxed text-navy">{testimonial.quote}</blockquote>
+          <p class="mt-6 font-semibold text-caption">{testimonial.name}</p>
+        </article>
+      ))}
+    </div>
+    <div class="reveal mx-auto mt-8 max-w-7xl text-center">
+      <a class="inline-flex rounded-full bg-navy px-7 py-4 font-bold text-white" href="/review/">Share your experience</a>
+    </div>
+  </section>
+</InteriorLayout>
+

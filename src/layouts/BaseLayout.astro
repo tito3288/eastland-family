@@ -1,48 +1,86 @@
 ---
 import "../styles/global.css";
 import { theme } from "../lib/theme.config";
+import { practice } from "../lib/practice";
 
 interface Props {
   title?: string;
   description?: string;
-  canonical?: string;
+  canonical?: string | false;
   image?: string;
+  noindex?: boolean;
 }
 
 const {
-  title = "Eastland Family Dental | Smile Wellness in Independence, MO",
-  description = "Eastland Family Dental offers preventive, restorative, emergency, and cosmetic dental care for families and adults in Independence, MO.",
-  canonical = "https://eastlandfamilydental.com/",
-  image = "/images/hero-dental-care.jpg",
+  title = "Family Dentist in Independence, MO | Eastland Family Dental",
+  description = "Eastland Family Dental provides preventive, restorative, cosmetic, and surgical dental care for children and adults in Independence, MO.",
+  canonical,
+  image = "/og.png",
+  noindex = false,
 } = Astro.props;
 
-const ogImage = new URL(image, canonical).toString();
+const siteOrigin = Astro.site ?? new URL("https://www.eastlandfamilydental.com");
+const canonicalUrl = canonical === false ? undefined : canonical ?? new URL(Astro.url.pathname, siteOrigin).toString();
+const ogImage = new URL(image, siteOrigin).toString();
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Dentist",
+  name: practice.name,
+  url: siteOrigin.toString(),
+  image: ogImage,
+  logo: new URL("/images/eastland-logo.png", siteOrigin).toString(),
+  telephone: practice.phoneDisplay,
+  email: practice.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: practice.address.street,
+    addressLocality: "Independence",
+    addressRegion: "MO",
+    postalCode: "64055",
+    addressCountry: "US",
+  },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday"],
+    opens: "07:00",
+    closes: "16:30",
+  },
+};
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href="/images/eastland-logo.png" />
+    <link rel="apple-touch-icon" href="/images/eastland-logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={practice.name} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Eastland Family Dental — Healthy smiles, cared for gently." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Eastland Family Dental — Healthy smiles, cared for gently." />
     <meta name="theme-color" content={theme.colors.navy} />
+    {!noindex && <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
     <script is:inline>document.documentElement.classList.add("js");</script>
   </head>
   <body class="bg-porcelain text-navy font-body antialiased">
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <slot />
   </body>
 </html>

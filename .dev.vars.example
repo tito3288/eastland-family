@@ -1,0 +1,5 @@
+# Copy this file to .dev.vars and replace every placeholder before testing email delivery.
+PUBLIC_APPOINTMENT_FORM_ENABLED="false"
+RESEND_API_KEY="re_replace_with_your_private_key"
+APPOINTMENT_TO_EMAIL="office@example.com"
+APPOINTMENT_FROM_EMAIL="Eastland Family Dental Website <appointments@your-verified-domain.example>"

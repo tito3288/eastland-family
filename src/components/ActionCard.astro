@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  label: string;
+  external?: boolean;
+  tone?: "air" | "sand" | "powder" | "navy" | "white";
+}
+
+const {
+  title,
+  description,
+  href,
+  label,
+  external = false,
+  tone = "white",
+} = Astro.props;
+
+const tones = {
+  air: "bg-air",
+  sand: "bg-sand",
+  powder: "bg-powder",
+  navy: "bg-navy text-white",
+  white: "bg-white",
+};
+
+const descriptionTone = tone === "navy" ? "text-white/75" : "text-body";
+const linkTone = tone === "navy" ? "bg-white text-navy" : "bg-navy text-white";
+---
+
+<article class:list={["reveal glow flex min-h-64 flex-col rounded-4xl p-6 sm:rounded-5xl sm:p-8", tones[tone]]}>
+  <h2 class="font-heading text-3xl leading-tight">{title}</h2>
+  <p class:list={["mt-4 flex-1 leading-relaxed", descriptionTone]}>{description}</p>
+  <a
+    href={href}
+    class:list={["mt-7 inline-flex w-fit rounded-full px-6 py-3 font-bold", linkTone]}
+    target={external ? "_blank" : undefined}
+    rel={external ? "noopener noreferrer" : undefined}
+  >
+    {label}{external ? " ↗" : ""}
+  </a>
+</article>
+

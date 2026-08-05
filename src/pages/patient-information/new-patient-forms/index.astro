@@ -1,0 +1,30 @@
+---
+import InteriorLayout from "../../../layouts/InteriorLayout.astro";
+import { practice } from "../../../lib/practice";
+import { appointmentHref } from "../../../lib/features";
+---
+
+<InteriorLayout
+  title="New Patient Forms | Eastland Family Dental"
+  description="Find current new-patient paperwork information for Eastland Family Dental and contact the office with questions before your first visit."
+  path="/patient-information/new-patient-forms/"
+  eyebrow="New patients"
+  heading="Prepare for your first visit."
+  intro="New-patient forms are not currently available to download online. Please call the office with questions about the paperwork needed for your visit."
+>
+  <section class="px-4 py-10 sm:py-14">
+    <div class="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.15fr_.85fr] lg:items-center lg:gap-16">
+        <div class="reveal reveal-left py-4">
+          <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Current form status</p>
+          <h2 class="mt-4 font-heading text-4xl leading-tight">The online patient packet is coming soon.</h2>
+          <p class="mt-5 text-lg leading-relaxed text-body">Online forms are not available yet. Once the office’s current patient packet is ready, it can be added here for patients to print and complete before arriving.</p>
+        </div>
+        <aside class="reveal reveal-right glow rounded-4xl bg-air p-6 sm:rounded-5xl sm:p-8">
+          <h3 class="text-2xl font-bold text-navy">Questions before your visit?</h3>
+          <p class="mt-3 leading-relaxed text-body">Call the office and the team will explain what to bring and what paperwork is currently required.</p>
+          <a class="mt-6 block rounded-full bg-navy px-6 py-4 text-center font-bold text-white" href={practice.phoneHref}>Call {practice.phoneDisplay}</a>
+          <a class="mt-4 block text-center font-bold text-navy underline decoration-navy/25 underline-offset-4" href={appointmentHref}>Appointment information</a>
+        </aside>
+    </div>
+  </section>
+</InteriorLayout>

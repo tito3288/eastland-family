@@ -1,0 +1,61 @@
+---
+import InteriorLayout from "./InteriorLayout.astro";
+import type { BlogPost } from "../lib/blog";
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+---
+
+<InteriorLayout
+  title={`${post.title} | Eastland Family Dental`}
+  description={post.summary}
+  path={`/${post.slug}/`}
+  eyebrow={`${post.category} · ${post.date}`}
+  heading={post.title}
+  intro={post.summary}
+>
+  <article class="px-4 py-10 sm:py-16">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.48fr_1fr] lg:gap-20">
+      <aside class="reveal reveal-left lg:sticky lg:top-32 lg:self-start">
+        <a class="text-sm font-bold text-blue" href="/blog/">← Back to the blog</a>
+        <p class="mt-8 text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">A note before you read</p>
+        <p class="mt-4 max-w-sm leading-relaxed text-body">This article provides general dental education. Your dentist can evaluate your specific symptoms, health history, and treatment needs.</p>
+      </aside>
+
+      <div class="reveal reveal-right border-t border-navy/15">
+        {post.sections.map((section) => (
+          <section class="border-b border-navy/15 py-8 sm:py-10">
+            <h2 class="font-heading text-3xl leading-tight sm:text-4xl">{section.heading}</h2>
+            {section.paragraphs?.map((paragraph) => (
+              <p class="mt-5 text-lg leading-relaxed text-body">{paragraph}</p>
+            ))}
+            {section.bullets && (
+              <ul class="mt-6 space-y-4">
+                {section.bullets.map((bullet) => (
+                  <li class="grid grid-cols-[auto_1fr] gap-3 text-lg leading-relaxed text-body">
+                    <span class="mt-2.5 h-2 w-2 rounded-full bg-blue" aria-hidden="true"></span>
+                    <span>{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </section>
+        ))}
+
+        <section class="py-8 sm:py-10">
+          <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Reviewed references</p>
+          <div class="mt-5 flex flex-col items-start gap-3">
+            {post.sources.map((source) => (
+              <a class="font-bold text-blue underline decoration-blue/30 underline-offset-4 hover:decoration-blue" href={source.href} target="_blank" rel="noreferrer">
+                {source.label}<span class="sr-only"> (opens in a new tab)</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      </div>
+    </div>
+  </article>
+</InteriorLayout>

@@ -1,17 +1,19 @@
 ---
+import { practice } from "../lib/practice";
+
 const faqs = [
   {
-    question: "Do you see families and adults?",
-    answer: "Yes. Eastland Family Dental provides family-focused care for routine and ongoing oral health needs.",
+    question: "Do you welcome children and adults?",
+    answer: "Yes. Eastland Family Dental provides family-focused care for children and adults, from routine visits to more involved treatment.",
   },
   {
-    question: "Can I call for urgent dental concerns?",
-    answer: "Call the office so the team can help you determine the best next step for tooth pain, swelling, or injury.",
+    question: "How do I request an appointment?",
+    answer: `Call ${practice.phoneDisplay} to request an appointment. Our scheduling coordinator will follow up to confirm your visit.`,
     delay: "80ms",
   },
   {
-    question: "Where is the office?",
-    answer: "19401 East US Highway 40 Ste. 180, Independence, MO 64055.",
+    question: "What payment and financing options are available?",
+    answer: "The office accepts cash, personal checks, debit cards, and most major credit cards. CareCredit financing is also available for qualifying patients.",
     delay: "160ms",
   },
 ];

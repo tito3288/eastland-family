@@ -1,0 +1,85 @@
+---
+import InteriorLayout from "../../layouts/InteriorLayout.astro";
+import { appointmentHref } from "../../lib/features";
+
+const resources = [
+  {
+    title: "Request an appointment",
+    description: "Call the office to request a visit. A scheduling coordinator will follow up to confirm the appointment details.",
+    href: appointmentHref,
+    label: "Appointment details",
+  },
+  {
+    title: "New patient forms",
+    description: "Check the current status of new-patient paperwork and find out how to prepare for your first appointment.",
+    href: "/patient-information/new-patient-forms/",
+    label: "Forms information",
+  },
+  {
+    title: "Frequently asked questions",
+    description: "Find concise answers about home care, dental visits, X-rays, gum health, fillings, and cosmetic treatment.",
+    href: "/patient-information/frequently-asked-questions/",
+    label: "Read the FAQs",
+  },
+  {
+    title: "Dental videos",
+    description: "Explore patient-education videos and visual guides published by established dental and public-health organizations.",
+    href: "/patient-information/dental-videos/",
+    label: "Open the library",
+  },
+  {
+    title: "Referring doctors",
+    description: "Coordinate a professional referral, confirm the requested service, and ask how records should be transferred securely.",
+    href: "/patient-information/referring-doctors/",
+    label: "Referral information",
+  },
+  {
+    title: "Payment options",
+    description: "The office accepts cash, personal checks, debit cards, and most major credit cards. Payment is expected when services are performed.",
+    href: "/financing/",
+    label: "Explore financing",
+  },
+  {
+    title: "Dental insurance",
+    description: "Insurance details vary. Contact the office directly with questions about your plan or expected payment.",
+    href: "/contact/",
+    label: "Contact the office",
+  },
+  {
+    title: "Pay your bill",
+    description: "Use the practice’s external payment portal to make an online payment, or call the office if you need help.",
+    href: "/pay-your-bill/",
+    label: "Payment portal",
+  },
+];
+---
+
+<InteriorLayout
+  title="Patient Information | Eastland Family Dental"
+  description="Find appointment, new-patient, payment, insurance, financing, and bill-pay information for Eastland Family Dental."
+  path="/patient-information/"
+  eyebrow="Patient information"
+  heading="Helpful details, all in one place."
+  intro="Whether you are preparing for your first visit or looking for payment information, these resources can help you take the next step."
+>
+  <section class="px-4 py-10 sm:py-16">
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.7fr_1.3fr] lg:gap-16">
+      <div class="reveal reveal-left py-3">
+        <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Patient resources</p>
+        <h2 class="mt-4 font-heading text-4xl leading-tight">Start with what you need today.</h2>
+        <p class="mt-5 max-w-md text-lg leading-relaxed text-body">Each resource opens the relevant details without asking you to sort through unrelated information.</p>
+      </div>
+      <div class="reveal reveal-right border-t border-navy/15">
+        {resources.map((resource) => (
+          <a class="group grid gap-3 border-b border-navy/15 py-6 sm:grid-cols-[1fr_1.3fr_auto] sm:items-center sm:gap-8" href={resource.href}>
+            <h3 class="text-xl font-bold text-navy">{resource.title}</h3>
+            <p class="leading-relaxed text-body">{resource.description}</p>
+            <span class="flex items-center gap-2 whitespace-nowrap text-sm font-bold text-blue">
+              {resource.label}<span class="transition group-hover:translate-x-1" aria-hidden="true">→</span>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</InteriorLayout>

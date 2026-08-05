@@ -1,43 +1,57 @@
-# Astro Starter Kit: Minimal
+# Eastland Family Dental
+
+Astro website for Eastland Family Dental, built as a static Cloudflare Pages site with one Pages Function for appointment-request email delivery through Resend.
+
+## Local website
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Validation
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+npm run astro -- check
+npm run test:function
+npm run build
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Appointment email status
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+The online appointment form and its email endpoint are intentionally dormant. With the default feature flag set to `false`, appointment buttons open `/contact/`, the saved form is not rendered, and `/api/appointment` will not accept submissions.
 
-Any static assets, like images, can be placed in the `public/` directory.
+The implementation is preserved for future use. When enabled, the form posts to the Cloudflare Pages Function at `/api/appointment`; private Resend configuration is never included in browser code.
 
-## 🧞 Commands
+## Activate the appointment form locally
 
-All commands are run from the root of the project, from a terminal:
+1. Copy `.env.example` to `.env` and set `PUBLIC_APPOINTMENT_FORM_ENABLED="true"`.
+2. Copy `.dev.vars.example` to `.dev.vars`.
+3. Set the same feature flag to `true` and replace the three Resend placeholders:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+```dotenv
+PUBLIC_APPOINTMENT_FORM_ENABLED="true"
+RESEND_API_KEY="re_..."
+APPOINTMENT_TO_EMAIL="office@example.com"
+APPOINTMENT_FROM_EMAIL="Eastland Family Dental Website <appointments@your-verified-domain.example>"
+```
 
-## 👀 Want to learn more?
+4. Start the Cloudflare Pages preview:
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```sh
+npm run preview:cloudflare
+```
+
+The sender must use a domain that is verified in Resend. `.env` and `.dev.vars` are ignored by Git and must never be committed.
+
+## Cloudflare Pages
+
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Functions directory: `functions`
+
+To activate a future Cloudflare preview deployment:
+
+1. Add `PUBLIC_APPOINTMENT_FORM_ENABLED=true` to the Pages build environment and make the same value available to the Pages Function.
+2. Add `RESEND_API_KEY`, `APPOINTMENT_TO_EMAIL`, and `APPOINTMENT_FROM_EMAIL` under the Pages project’s **Settings → Variables and Secrets**. Encrypt `RESEND_API_KEY` as a secret.
+3. Redeploy so Astro rebuilds the public appointment links and form.

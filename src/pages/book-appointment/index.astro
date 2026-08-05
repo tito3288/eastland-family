@@ -1,0 +1,43 @@
+---
+import InteriorLayout from "../../layouts/InteriorLayout.astro";
+import OfficeDetails from "../../components/OfficeDetails.astro";
+import { practice } from "../../lib/practice";
+---
+
+<InteriorLayout
+  title="Book a Dental Appointment | Eastland Family Dental"
+  description="Request a dental appointment with Eastland Family Dental in Independence, MO. Call or email the office and our team will help confirm your visit."
+  path="/book-appointment/"
+  eyebrow="Appointments"
+  heading="Book your dental appointment."
+  intro="To request a visit with Eastland Family Dental, call or email our Independence office. Our team will help find a time and confirm the details of your appointment."
+  showContactCta={false}
+>
+  <section class="px-4 py-10 sm:py-14">
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.15fr_.85fr] lg:items-start lg:gap-16">
+      <div class="reveal reveal-left py-4 lg:py-8">
+        <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Request a visit</p>
+        <h2 class="mt-4 max-w-2xl font-heading text-4xl leading-tight">Call the office to get started.</h2>
+        <p class="mt-5 max-w-2xl text-lg leading-relaxed text-body">Online appointment requests are not currently available. Calling is the most direct way to schedule, and you may also email the office with a general question.</p>
+        <div class="mt-8 border-y border-navy/15">
+          <a class="group grid gap-2 border-b border-navy/15 py-5 sm:grid-cols-[11rem_1fr_auto] sm:items-center" href={practice.phoneHref}>
+            <span class="text-sm font-bold tracking-[.16em] text-eucalyptus uppercase">Call the office</span>
+            <strong class="text-xl text-navy">{practice.phoneDisplay}</strong>
+            <span class="text-blue transition group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+          <a class="group grid gap-2 border-b border-navy/15 py-5 sm:grid-cols-[11rem_1fr_auto] sm:items-center" href={`mailto:${practice.email}`}>
+            <span class="text-sm font-bold tracking-[.16em] text-eucalyptus uppercase">Send an email</span>
+            <strong class="break-all text-base text-navy sm:text-lg">{practice.email}</strong>
+            <span class="text-blue transition group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+          <a class="group grid gap-2 py-5 sm:grid-cols-[11rem_1fr_auto] sm:items-center" href={practice.mapsUrl} target="_blank" rel="noopener noreferrer">
+            <span class="text-sm font-bold tracking-[.16em] text-eucalyptus uppercase">Get directions</span>
+            <strong class="text-lg text-navy">{practice.address.street}, {practice.address.cityStateZip}</strong>
+            <span class="text-blue transition group-hover:translate-x-1" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+      <OfficeDetails showAfterHours />
+    </div>
+  </section>
+</InteriorLayout>

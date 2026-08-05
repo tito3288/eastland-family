@@ -1,0 +1,19 @@
+---
+import BlogArticleLayout from "../layouts/BlogArticleLayout.astro";
+import { blogPosts, type BlogPost } from "../lib/blog";
+
+export function getStaticPaths() {
+  return blogPosts.map((post) => ({
+    params: { blogSlug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+---
+
+<BlogArticleLayout post={post} />

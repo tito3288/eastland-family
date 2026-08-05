@@ -1,0 +1,126 @@
+---
+import InteriorLayout from "../../../layouts/InteriorLayout.astro";
+
+const faqs = [
+  {
+    question: "How often should I brush and clean between my teeth?",
+    paragraphs: [
+      "The American Dental Association recommends brushing twice a day with fluoride toothpaste and cleaning between the teeth once a day. Floss, interdental brushes, and water flossers serve different needs, so ask the dental team which method fits your teeth, gums, and dexterity.",
+    ],
+    sources: [
+      { label: "ADA brushing guidance", href: "https://www.mouthhealthy.org/all-topics-a-z/brushing-your-teeth" },
+      { label: "ADA flossing guidance", href: "https://www.mouthhealthy.org/all-topics-a-z/flossing" },
+    ],
+  },
+  {
+    question: "What should I do about persistent bad breath?",
+    paragraphs: [
+      "Bad breath can be related to bacteria on the teeth or tongue, dry mouth, gum disease, tobacco, food, or another health condition. Brush, clean between the teeth, clean removable appliances as directed, and drink water. Mouthwash may temporarily mask odor without correcting its cause.",
+      "Schedule an evaluation if the problem continues. If the mouth is healthy, a medical evaluation may be appropriate for another possible source.",
+    ],
+    sources: [{ label: "ADA information about bad breath", href: "https://www.mouthhealthy.org/all-topics-a-z/bad-breath/" }],
+  },
+  {
+    question: "How often should I have a dental examination and cleaning?",
+    paragraphs: [
+      "There is no single interval that fits every patient. Some people may be advised to visit once or twice a year, while active gum disease, frequent cavities, dry mouth, health conditions, or another concern may require more frequent care. The recommended schedule should reflect your current risk and findings.",
+    ],
+    sources: [{ label: "ADA questions about dental visits", href: "https://www.mouthhealthy.org/dental-care/questions-about-going-to-the-dentist" }],
+  },
+  {
+    question: "Do I need dental X-rays at every visit?",
+    paragraphs: [
+      "No. Dental imaging should be recommended when it is expected to provide information needed for diagnosis or treatment. Symptoms, age, cavity and gum-disease risk, previous images, and the type of care being considered all affect the decision.",
+    ],
+    sources: [{ label: "ADA dental X-ray guidance", href: "https://www.ada.org/resources/ada-library/oral-health-topics/x-rays-radiographs" }],
+  },
+  {
+    question: "What are common warning signs of gum disease?",
+    paragraphs: [
+      "Signs can include gums that bleed, swell, feel tender, or pull away from the teeth; persistent bad breath; loose teeth; discomfort when chewing; and a change in the bite. Gum disease can also progress with few noticeable symptoms, so an examination and gum measurements matter.",
+    ],
+    sources: [{ label: "NIDCR gum-disease information", href: "https://www.nidcr.nih.gov/health-info/gum-disease" }],
+  },
+  {
+    question: "Should an existing silver amalgam filling be removed?",
+    paragraphs: [
+      "The FDA does not recommend removing an amalgam filling that is in good condition and has no decay beneath it unless removal is medically necessary. Removing a sound filling takes away additional tooth structure and temporarily increases mercury-vapor exposure.",
+      "For a new filling, the FDA recommends that certain higher-risk groups discuss non-amalgam options when appropriate. Your dentist can compare the tooth’s condition, material choices, benefits, and risks with you.",
+    ],
+    sources: [{ label: "FDA dental amalgam recommendations", href: "https://www.fda.gov/medical-devices/dental-amalgam-fillings/dental-amalgam-fillings-recommendations-graphics" }],
+  },
+  {
+    question: "Will whitening change the color of fillings, crowns, or veneers?",
+    paragraphs: [
+      "Whitening changes the color of eligible natural tooth structure; it does not lighten composite fillings, crowns, bridges, or veneers. Existing restorations should be considered before treatment because they may no longer match the surrounding teeth afterward.",
+    ],
+    sources: [{ label: "ADA teeth-whitening information", href: "https://www.mouthhealthy.org/all-topics-a-z/teeth-whitening" }],
+  },
+  {
+    question: "Are porcelain veneers reversible?",
+    paragraphs: [
+      "Veneers are thin coverings bonded to the front of selected teeth. Because enamel is usually removed to prepare the tooth, treatment is generally not reversible. A consultation should compare veneers with options such as whitening, bonding, orthodontics, or a crown according to the condition of the tooth.",
+    ],
+    sources: [{ label: "ADA information about veneers", href: "https://www.mouthhealthy.org/all-topics-a-z/veneers" }],
+  },
+  {
+    question: "What should I do if I have a dental emergency?",
+    paragraphs: [
+      "Call the dental office promptly and explain what happened. For a knocked-out permanent tooth, keep it moist without touching or scrubbing the root and seek immediate dental care. For a cracked tooth, rinse gently with warm water and use a cold compress outside the face if swelling is present.",
+      "Go to an emergency department or call 911 for a life-threatening injury, uncontrolled bleeding, or swelling that affects breathing or swallowing.",
+    ],
+    sources: [{ label: "ADA dental-emergency guidance", href: "https://www.mouthhealthy.org/all-topics-a-z/dental-emergencies" }],
+  },
+  {
+    question: "What should I bring to a first appointment?",
+    paragraphs: [
+      "Bring a current medication and allergy list, relevant health information, insurance details if you plan to use coverage, and the contact information for your previous dentist when records may be needed. The online new-patient packet is still listed as coming soon, so call the office if you want to confirm current paperwork before arriving.",
+    ],
+    internalLink: { label: "Review new-patient form information", href: "/patient-information/new-patient-forms/" },
+  },
+];
+---
+
+<InteriorLayout
+  title="Dental FAQs | Eastland Family Dental"
+  description="Read factual answers to common questions about dental home care, visits, X-rays, gum health, fillings, whitening, veneers, and emergencies."
+  path="/patient-information/frequently-asked-questions/"
+  eyebrow="Patient education"
+  heading="Clear answers without one-size-fits-all promises."
+  intro="These answers provide general guidance and useful starting points. A dental examination and your health history determine what is appropriate for you."
+>
+  <section class="overflow-x-clip px-4 py-10 sm:py-16">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.5fr_1fr] lg:gap-20">
+      <aside class="reveal reveal-left lg:sticky lg:top-32 lg:self-start">
+        <a class="text-sm font-bold text-blue" href="/patient-information/">← Patient information</a>
+        <p class="mt-8 text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">A useful starting point</p>
+        <h2 class="mt-4 font-heading text-3xl leading-tight sm:text-4xl">Open a question to read the answer.</h2>
+        <p class="mt-5 max-w-sm leading-relaxed text-body">For symptoms, treatment decisions, or advice tied to your medical history, contact the office rather than relying on general online information.</p>
+      </aside>
+
+      <div class="reveal reveal-right border-t border-navy/15">
+        {faqs.map((faq, index) => (
+          <details class="group border-b border-navy/15" style={`--reveal-delay:${Math.min(index * 35, 210)}ms`}>
+            <summary class="flex cursor-pointer list-none items-start justify-between gap-6 py-6 text-xl font-bold text-navy marker:content-none sm:text-2xl">
+              <span>{faq.question}</span>
+              <span class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-air text-blue transition group-open:rotate-45" aria-hidden="true">+</span>
+            </summary>
+            <div class="max-w-3xl pb-7 pr-0 text-lg leading-relaxed text-body sm:pr-14">
+              {faq.paragraphs.map((paragraph) => <p class="mt-4 first:mt-0">{paragraph}</p>)}
+              {faq.sources && (
+                <div class="mt-5 flex flex-wrap gap-x-5 gap-y-2">
+                  {faq.sources.map((source) => (
+                    <a class="text-sm font-bold text-blue underline decoration-blue/25 underline-offset-4" href={source.href} target="_blank" rel="noreferrer">
+                      {source.label}<span class="sr-only"> (opens in a new tab)</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+              {faq.internalLink && <a class="mt-5 inline-flex text-sm font-bold text-blue underline decoration-blue/25 underline-offset-4" href={faq.internalLink.href}>{faq.internalLink.label} →</a>}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+</InteriorLayout>

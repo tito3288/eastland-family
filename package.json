@@ -8,7 +8,10 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "audit:site": "node scripts/audit-site.mjs",
     "preview": "astro preview",
+    "preview:cloudflare": "npm run build && wrangler pages dev dist",
+    "test:function": "node --test tests/appointment-function.test.mjs",
     "astro": "astro"
   },
   "dependencies": {
@@ -22,6 +25,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "wrangler": "^4.119.0"
   }
 }

@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SiteScripts from "../components/SiteScripts.astro";
+---
+
+<BaseLayout
+  title="Page Not Found | Eastland Family Dental"
+  description="The page you requested could not be found. Return to Eastland Family Dental or explore patient resources and dental services."
+  canonical={false}
+  noindex={true}
+>
+  <Header />
+  <main id="main-content" class="px-4 py-16 sm:py-24">
+    <section class="reveal reveal-zoom mx-auto max-w-5xl overflow-hidden rounded-4xl bg-air px-6 py-14 text-center sm:rounded-6xl sm:px-12 sm:py-20">
+      <p class="text-xs font-bold tracking-[.22em] text-blue uppercase">404 · Page not found</p>
+      <h1 class="mx-auto mt-5 max-w-3xl font-heading text-5xl leading-[1.02] tracking-tight sm:text-7xl">This page seems to have moved.</h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-body">The address may be outdated or mistyped. You can return home, explore dental care, or contact the office for help finding what you need.</p>
+      <div class="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
+        <a class="rounded-full bg-navy px-7 py-4 font-bold text-white" href="/">Return Home</a>
+        <a class="rounded-full bg-white px-7 py-4 font-bold text-navy" href="/procedures/">Explore Procedures</a>
+        <a class="rounded-full border border-navy/15 px-7 py-4 font-bold text-navy" href="/contact/">Contact the Office</a>
+      </div>
+    </section>
+  </main>
+  <Footer />
+  <SiteScripts />
+</BaseLayout>

@@ -1,0 +1,89 @@
+---
+import InteriorLayout from "../../../layouts/InteriorLayout.astro";
+import { appointmentHref } from "../../../lib/features";
+
+const resources = [
+  {
+    topic: "Brushing your teeth",
+    organization: "American Dental Association",
+    description: "A video-supported guide to brushing frequency, toothbrush selection, fluoride toothpaste, and technique.",
+    href: "https://www.mouthhealthy.org/all-topics-a-z/brushing-your-teeth",
+  },
+  {
+    topic: "Cleaning between teeth",
+    organization: "American Dental Association",
+    description: "A visual guide to flossing and choosing a method for areas a toothbrush cannot fully reach.",
+    href: "https://www.mouthhealthy.org/all-topics-a-z/flossing",
+  },
+  {
+    topic: "Bad breath",
+    organization: "American Dental Association",
+    description: "A video and overview of common oral causes, daily care, and when another health evaluation may help.",
+    href: "https://www.mouthhealthy.org/all-topics-a-z/bad-breath/",
+  },
+  {
+    topic: "Gum disease",
+    organization: "American Dental Association",
+    description: "An introduction to warning signs, risk factors, and why gum disease can be present without pain.",
+    href: "https://www.mouthhealthy.org/all-topics-a-z/gum-disease.aspx/",
+  },
+  {
+    topic: "How tooth decay develops",
+    organization: "National Institute of Dental and Craniofacial Research",
+    description: "A video-supported explanation of the tooth-decay process and how fluoride and daily care help protect enamel.",
+    href: "https://www.nidcr.nih.gov/health-info/tooth-decay/more-info/tooth-decay-process",
+  },
+  {
+    topic: "Root canal treatment",
+    organization: "American Association of Endodontists",
+    description: "Patient videos explaining the steps of root canal treatment and the role of an endodontic specialist.",
+    href: "https://www.aae.org/patients/root-canal-treatment/",
+  },
+];
+---
+
+<InteriorLayout
+  title="Dental Videos | Eastland Family Dental"
+  description="Explore dental patient-education videos and visual guides from the ADA, NIDCR, and American Association of Endodontists."
+  path="/patient-information/dental-videos/"
+  eyebrow="Patient education library"
+  heading="Watch, learn, and bring your questions to the visit."
+  intro="These resources come from established dental and public-health organizations and can help you understand common oral-health topics before speaking with the dental team."
+>
+  <section class="overflow-x-clip px-4 py-10 sm:py-16">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.52fr_1fr] lg:gap-20">
+      <aside class="reveal reveal-left lg:sticky lg:top-32 lg:self-start">
+        <a class="text-sm font-bold text-blue" href="/patient-information/">← Patient information</a>
+        <p class="mt-8 text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">How to use this library</p>
+        <h2 class="mt-4 font-heading text-3xl leading-tight sm:text-4xl">Education supports—not replaces—an examination.</h2>
+        <p class="mt-5 max-w-sm leading-relaxed text-body">Each resource opens on the publishing organization’s website. Video availability and player controls are managed by that source.</p>
+      </aside>
+
+      <div class="reveal reveal-right border-t border-navy/15">
+        <p class="border-b border-navy/15 py-5 text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Featured topics</p>
+        {resources.map((resource) => (
+          <a class="group grid gap-3 border-b border-navy/15 py-7 sm:grid-cols-[.72fr_1.28fr_auto] sm:items-start sm:gap-8" href={resource.href} target="_blank" rel="noreferrer">
+            <span>
+              <span class="block text-xl font-bold text-navy">{resource.topic}</span>
+              <span class="mt-2 block text-xs font-bold tracking-[.12em] text-eucalyptus uppercase">{resource.organization}</span>
+            </span>
+            <span class="leading-relaxed text-body">{resource.description}</span>
+            <span class="font-bold text-blue transition group-hover:translate-x-1" aria-hidden="true">↗</span>
+            <span class="sr-only">Open {resource.topic} from {resource.organization} in a new tab</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-air px-4 py-12 sm:py-16">
+    <div class="reveal mx-auto grid max-w-7xl gap-7 md:grid-cols-[1fr_auto] md:items-center md:gap-14">
+      <div>
+        <p class="text-xs font-bold tracking-[.2em] text-blue uppercase">Something still unclear?</p>
+        <h2 class="mt-4 font-heading text-3xl leading-tight sm:text-4xl">Ask how the information applies to your smile.</h2>
+        <p class="mt-4 max-w-2xl leading-relaxed text-body">Online education cannot show what is happening in a particular tooth or replace diagnostic imaging when it is clinically needed.</p>
+      </div>
+      <a class="inline-flex justify-center rounded-full bg-navy px-7 py-4 font-bold text-white" href={appointmentHref}>Request an appointment</a>
+    </div>
+  </section>
+</InteriorLayout>

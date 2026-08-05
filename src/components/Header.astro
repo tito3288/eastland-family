@@ -1,39 +1,183 @@
 ---
-const navItems = [
-  { href: "#story", label: "Our Practice" },
-  { href: "#choose", label: "Procedures" },
-  { href: "#faq", label: "Patient Information" },
-  { href: "#reviews", label: "Leave a Review" },
-  { href: "#contact", label: "Contact" },
-  { href: "#contact", label: "Payment Methods" },
+import { practice } from "../lib/practice";
+import { blogPosts } from "../lib/blog";
+import { procedureCategories } from "../lib/procedures";
+import { procedureDetails } from "../lib/procedure-details";
+import { appointmentHref } from "../lib/features";
+
+const pathname = Astro.url.pathname;
+const blogPaths = ["/blog/", ...blogPosts.map((post) => `/${post.slug}/`)];
+const isPathActive = (href: string) => pathname === href;
+
+const ourPracticeActive = pathname.startsWith("/our-practice") || blogPaths.includes(pathname);
+const proceduresActive = pathname.startsWith("/procedures");
+const patientActive = pathname.startsWith("/patient-information");
+const reviewsActive = pathname.startsWith("/review");
+const paymentActive = pathname === "/financing/" || pathname === "/pay-your-bill/";
+
+const practiceLinks = [
+  { href: "/our-practice/", label: "Practice Overview" },
+  { href: "/our-practice/meet-the-doctor/", label: "Meet the Doctor" },
+  { href: "/our-practice/meet-the-team/", label: "Meet the Team" },
+  { href: "/blog/", label: "Dental Blog", active: blogPaths.includes(pathname) },
 ];
+
+const patientLinks = [
+  { href: "/patient-information/", label: "Patient Information Overview" },
+  { href: "/patient-information/new-patient-forms/", label: "New Patient Forms" },
+  { href: "/patient-information/frequently-asked-questions/", label: "Frequently Asked Questions" },
+  { href: "/patient-information/dental-videos/", label: "Dental Videos" },
+  { href: "/patient-information/referring-doctors/", label: "Referring Doctors" },
+];
+
+const reviewLinks = [
+  { href: "/review/", label: "Leave a Review" },
+  { href: "/review/testimonials/", label: "Patient Testimonials" },
+];
+
+const paymentLinks = [
+  { href: "/financing/", label: "Financing & Insurance" },
+  { href: "/pay-your-bill/", label: "Pay Your Bill" },
+];
+
+const procedureGroups = procedureCategories.map((category) => ({
+  ...category,
+  details: procedureDetails.filter((detail) => detail.categorySlug === category.slug),
+}));
 ---
 
-<header class="sticky top-0 inset-x-0 z-50 px-3 py-3 sm:px-4">
+<header class="sticky inset-x-0 top-0 z-50 px-3 py-3 sm:px-4">
   <div class="glow mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-3xl bg-porcelain/95 px-4 py-3 backdrop-blur sm:rounded-4xl sm:px-5 lg:gap-3 lg:px-5 xl:gap-6 xl:px-7">
-    <a href="#" class="flex min-w-0 shrink-0 items-center" aria-label="Eastland Family Dental home">
+    <a href="/" class="flex min-w-0 shrink-0 items-center" aria-label="Eastland Family Dental home">
       <img
         src="/images/eastland-logo.png"
         alt="Eastland Family Dental logo"
         width="500"
         height="500"
-        class="h-20 w-auto max-w-[235px] shrink-0 object-contain sm:h-24 sm:max-w-[315px] lg:h-14 lg:max-w-[145px] xl:h-16 xl:max-w-[190px]"
+        class="h-20 w-auto max-w-[235px] shrink-0 object-contain sm:h-24 sm:max-w-[315px] lg:h-20 lg:max-w-[220px] xl:h-24 xl:max-w-[270px]"
       />
     </a>
 
     <nav class="hidden min-w-0 flex-1 items-center justify-center gap-0.5 lg:flex xl:gap-1.5" aria-label="Primary navigation">
-      {navItems.map((item) => (
-        <a
-          href={item.href}
-          class="whitespace-nowrap rounded-full px-1.5 py-2 text-[11px] font-bold text-body transition hover:bg-air hover:text-navy xl:px-3 xl:text-sm"
-        >
-          {item.label}
-        </a>
-      ))}
+      <details class="nav-disclosure relative" data-desktop-menu>
+        <summary class:list={["nav-trigger", ourPracticeActive && "nav-trigger-active"]}>
+          <span>Our Practice</span><span class="nav-chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="compact-panel left-0">
+          <p class="menu-eyebrow">About Eastland</p>
+          <div class="mt-3">
+            {practiceLinks.map((item) => (
+              <a class:list={["compact-link", item.active ?? isPathActive(item.href) ? "compact-link-active" : ""]} href={item.href} aria-current={(item.active ?? isPathActive(item.href)) ? "page" : undefined}>
+                <span>{item.label}</span><span aria-hidden="true">→</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </details>
+
+      <details class="nav-disclosure static" data-desktop-menu>
+        <summary class:list={["nav-trigger", proceduresActive && "nav-trigger-active"]}>
+          <span>Procedures</span><span class="nav-chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="mega-panel">
+          <div class="flex flex-col gap-5 border-b border-navy/15 pb-5 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p class="menu-eyebrow">Explore dental care</p>
+              <p class="mt-2 max-w-xl font-heading text-3xl leading-tight text-navy">Find a treatment by category.</p>
+            </div>
+            <a class="menu-overview-link" href="/procedures/">View all procedures <span aria-hidden="true">→</span></a>
+          </div>
+
+          <div class="procedure-grid mt-2">
+            {procedureGroups.map((category) => (
+              <section class="procedure-group" aria-labelledby={`desktop-${category.slug}`}>
+                <a
+                  id={`desktop-${category.slug}`}
+                  class:list={["procedure-category-link", pathname.startsWith(`/procedures/${category.slug}`) && "text-blue"]}
+                  href={`/procedures/${category.slug}/`}
+                  aria-current={pathname === `/procedures/${category.slug}/` ? "page" : undefined}
+                >
+                  {category.title}<span aria-hidden="true">→</span>
+                </a>
+                {category.details.length > 0 ? (
+                  <ul class="mt-3 space-y-1.5">
+                    {category.details.map((detail) => {
+                      const href = `/procedures/${detail.categorySlug}/${detail.slug}/`;
+                      return (
+                        <li>
+                          <a class:list={["procedure-detail-link", pathname === href && "procedure-detail-active"]} href={href} aria-current={pathname === href ? "page" : undefined}>
+                            {detail.title}
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                ) : (
+                  <p class="mt-3 text-sm leading-relaxed text-body">Family-centered care and guidance for developing smiles.</p>
+                )}
+              </section>
+            ))}
+          </div>
+        </div>
+      </details>
+
+      <details class="nav-disclosure relative" data-desktop-menu>
+        <summary class:list={["nav-trigger", patientActive && "nav-trigger-active"]}>
+          <span>Patient Information</span><span class="nav-chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="compact-panel left-1/2 -translate-x-1/2">
+          <p class="menu-eyebrow">Plan your visit</p>
+          <div class="mt-3">
+            {patientLinks.map((item) => (
+              <a class:list={["compact-link", isPathActive(item.href) && "compact-link-active"]} href={item.href} aria-current={pathname === item.href ? "page" : undefined}>
+                <span>{item.label}</span><span aria-hidden="true">→</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </details>
+
+      <details class="nav-disclosure relative" data-desktop-menu>
+        <summary class:list={["nav-trigger", reviewsActive && "nav-trigger-active"]}>
+          <span>Reviews</span><span class="nav-chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="compact-panel left-1/2 -translate-x-1/2">
+          <p class="menu-eyebrow">Patient feedback</p>
+          <div class="mt-3">
+            {reviewLinks.map((item) => (
+              <a class:list={["compact-link", isPathActive(item.href) && "compact-link-active"]} href={item.href} aria-current={pathname === item.href ? "page" : undefined}>
+                <span>{item.label}</span><span aria-hidden="true">→</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </details>
+
+      <a
+        href="/contact/"
+        class:list={["nav-trigger", pathname === "/contact/" && "nav-trigger-active"]}
+        aria-current={pathname === "/contact/" ? "page" : undefined}
+      >Contact</a>
+
+      <details class="nav-disclosure relative" data-desktop-menu>
+        <summary class:list={["nav-trigger", paymentActive && "nav-trigger-active"]}>
+          <span>Payment Methods</span><span class="nav-chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="compact-panel right-0">
+          <p class="menu-eyebrow">Ways to pay</p>
+          <div class="mt-3">
+            {paymentLinks.map((item) => (
+              <a class:list={["compact-link", isPathActive(item.href) && "compact-link-active"]} href={item.href} aria-current={pathname === item.href ? "page" : undefined}>
+                <span>{item.label}</span><span aria-hidden="true">→</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </details>
     </nav>
 
     <div class="hidden shrink-0 items-center justify-end lg:flex">
-      <a href="#contact" class="whitespace-nowrap rounded-full bg-navy px-4 py-3 text-xs font-bold text-white shadow-lg shadow-navy/15 transition hover:bg-blue xl:px-7 xl:text-base">Book Appointment</a>
+      <a href={appointmentHref} class="whitespace-nowrap rounded-full bg-navy px-4 py-3 text-xs font-bold text-white shadow-lg shadow-navy/15 transition hover:bg-blue xl:px-7 xl:text-base">Book Appointment</a>
     </div>
 
     <button id="menuC" class="shrink-0 rounded-full bg-air p-3 lg:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobileC" type="button">
@@ -43,11 +187,341 @@ const navItems = [
     </button>
   </div>
 
-  <div id="mobileC" class="glow mx-auto mt-3 hidden max-w-7xl rounded-4xl bg-porcelain/95 p-5 backdrop-blur lg:hidden">
-    {navItems.map((item) => (
-      <a class="block py-3 font-semibold text-body" href={item.href}>{item.label}</a>
-    ))}
-    <a class="mt-3 block rounded-full bg-air py-3 text-center font-bold text-navy" href="tel:18167957007">(816) 795-7007</a>
-    <a class="mt-3 block rounded-full bg-navy py-3 text-center font-bold text-white" href="#contact">Book Appointment</a>
+  <div id="mobileC" class="glow mx-auto mt-3 hidden max-h-[calc(100vh-8rem)] max-w-7xl overflow-y-auto overscroll-contain rounded-4xl bg-porcelain/98 p-4 backdrop-blur lg:hidden sm:p-5">
+    <nav aria-label="Mobile navigation">
+      <details class="mobile-nav-group" open={ourPracticeActive || undefined}>
+        <summary class:list={["mobile-nav-summary", ourPracticeActive && "mobile-nav-summary-active"]}>
+          <span>Our Practice</span><span class="nav-chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="mobile-link-list">
+          {practiceLinks.map((item) => (
+            <a class:list={["mobile-nav-link", (item.active ?? isPathActive(item.href)) && "mobile-nav-link-active"]} href={item.href} aria-current={(item.active ?? isPathActive(item.href)) ? "page" : undefined}>{item.label}</a>
+          ))}
+        </div>
+      </details>
+
+      <details class="mobile-nav-group" open={proceduresActive || undefined}>
+        <summary class:list={["mobile-nav-summary", proceduresActive && "mobile-nav-summary-active"]}>
+          <span>Procedures</span><span class="nav-chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="mobile-link-list">
+          <a class:list={["mobile-nav-link font-bold", pathname === "/procedures/" && "mobile-nav-link-active"]} href="/procedures/" aria-current={pathname === "/procedures/" ? "page" : undefined}>All Procedures</a>
+          {procedureGroups.map((category) => (
+            <details class="mobile-procedure-group" open={pathname.startsWith(`/procedures/${category.slug}`) || undefined}>
+              <summary class="mobile-procedure-summary">
+                <span>{category.title}</span><span class="nav-chevron" aria-hidden="true"></span>
+              </summary>
+              <div class="border-l border-navy/15 pl-3">
+                <a class:list={["mobile-detail-link font-bold", pathname === `/procedures/${category.slug}/` && "mobile-nav-link-active"]} href={`/procedures/${category.slug}/`} aria-current={pathname === `/procedures/${category.slug}/` ? "page" : undefined}>Category Overview</a>
+                {category.details.map((detail) => {
+                  const href = `/procedures/${detail.categorySlug}/${detail.slug}/`;
+                  return <a class:list={["mobile-detail-link", pathname === href && "mobile-nav-link-active"]} href={href} aria-current={pathname === href ? "page" : undefined}>{detail.title}</a>;
+                })}
+              </div>
+            </details>
+          ))}
+        </div>
+      </details>
+
+      <details class="mobile-nav-group" open={patientActive || undefined}>
+        <summary class:list={["mobile-nav-summary", patientActive && "mobile-nav-summary-active"]}>
+          <span>Patient Information</span><span class="nav-chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="mobile-link-list">
+          {patientLinks.map((item) => (
+            <a class:list={["mobile-nav-link", isPathActive(item.href) && "mobile-nav-link-active"]} href={item.href} aria-current={pathname === item.href ? "page" : undefined}>{item.label}</a>
+          ))}
+        </div>
+      </details>
+
+      <details class="mobile-nav-group" open={reviewsActive || undefined}>
+        <summary class:list={["mobile-nav-summary", reviewsActive && "mobile-nav-summary-active"]}>
+          <span>Reviews</span><span class="nav-chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="mobile-link-list">
+          {reviewLinks.map((item) => (
+            <a class:list={["mobile-nav-link", isPathActive(item.href) && "mobile-nav-link-active"]} href={item.href} aria-current={pathname === item.href ? "page" : undefined}>{item.label}</a>
+          ))}
+        </div>
+      </details>
+
+      <a class:list={["mobile-flat-link", pathname === "/contact/" && "mobile-nav-summary-active"]} href="/contact/" aria-current={pathname === "/contact/" ? "page" : undefined}>Contact</a>
+
+      <details class="mobile-nav-group" open={paymentActive || undefined}>
+        <summary class:list={["mobile-nav-summary", paymentActive && "mobile-nav-summary-active"]}>
+          <span>Payment Methods</span><span class="nav-chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="mobile-link-list">
+          {paymentLinks.map((item) => (
+            <a class:list={["mobile-nav-link", isPathActive(item.href) && "mobile-nav-link-active"]} href={item.href} aria-current={pathname === item.href ? "page" : undefined}>{item.label}</a>
+          ))}
+        </div>
+      </details>
+    </nav>
+
+    <div class="mt-4 border-t border-navy/15 pt-4">
+      <a class="block rounded-full bg-air py-3 text-center font-bold text-navy" href={practice.phoneHref}>{practice.phoneDisplay}</a>
+      <a class="mt-3 block rounded-full bg-navy py-3 text-center font-bold text-white" href={appointmentHref}>Book Appointment</a>
+    </div>
   </div>
 </header>
+
+<style>
+  .nav-disclosure > summary,
+  .mobile-nav-group > summary,
+  .mobile-procedure-group > summary {
+    list-style: none;
+  }
+
+  .nav-disclosure > summary::-webkit-details-marker,
+  .mobile-nav-group > summary::-webkit-details-marker,
+  .mobile-procedure-group > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .nav-trigger {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+    border-radius: 9999px;
+    padding: 0.5rem 0.375rem;
+    color: var(--color-body);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    transition: background-color 160ms ease, color 160ms ease;
+  }
+
+  .nav-trigger:hover,
+  .nav-trigger:focus-visible,
+  .nav-disclosure[open] > .nav-trigger,
+  .nav-trigger-active {
+    background: var(--color-air);
+    color: var(--color-navy);
+  }
+
+  .nav-trigger:focus-visible,
+  .compact-link:focus-visible,
+  .procedure-category-link:focus-visible,
+  .procedure-detail-link:focus-visible,
+  .menu-overview-link:focus-visible,
+  .mobile-nav-summary:focus-visible,
+  .mobile-nav-link:focus-visible,
+  .mobile-flat-link:focus-visible,
+  .mobile-procedure-summary:focus-visible,
+  .mobile-detail-link:focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 3px;
+  }
+
+  .nav-chevron {
+    display: inline-block;
+    height: 0.42rem;
+    width: 0.42rem;
+    flex: 0 0 auto;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: translateY(-0.1rem) rotate(45deg);
+    transition: transform 160ms ease;
+  }
+
+  details[open] > summary .nav-chevron {
+    transform: translateY(0.1rem) rotate(225deg);
+  }
+
+  .compact-panel,
+  .mega-panel {
+    position: absolute;
+    top: calc(100% + 0.75rem);
+    border: 1px solid color-mix(in srgb, var(--color-navy) 12%, transparent);
+    border-radius: 1.5rem;
+    background: color-mix(in srgb, var(--color-porcelain) 97%, transparent);
+    box-shadow: 0 24px 65px rgba(0, 46, 79, 0.16);
+    backdrop-filter: blur(18px);
+  }
+
+  .compact-panel {
+    width: 19rem;
+    padding: 1.25rem;
+  }
+
+  .mega-panel {
+    left: 50%;
+    width: min(calc(100vw - 2rem), 80rem);
+    max-height: calc(100vh - 7rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 1.5rem;
+    transform: translateX(-50%);
+  }
+
+  .menu-eyebrow {
+    color: var(--color-eucalyptus);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .compact-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-top: 1px solid color-mix(in srgb, var(--color-navy) 13%, transparent);
+    padding: 0.8rem 0.15rem;
+    color: var(--color-body);
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: color 160ms ease, padding-left 160ms ease;
+  }
+
+  .compact-link:hover,
+  .compact-link-active {
+    padding-left: 0.35rem;
+    color: var(--color-blue);
+  }
+
+  .menu-overview-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    color: var(--color-blue);
+    font-size: 0.9rem;
+    font-weight: 800;
+  }
+
+  .procedure-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 1.5rem;
+  }
+
+  .procedure-group {
+    border-top: 1px solid color-mix(in srgb, var(--color-navy) 13%, transparent);
+    padding: 1.1rem 0.25rem 1.25rem;
+  }
+
+  .procedure-category-link {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    color: var(--color-navy);
+    font-size: 0.86rem;
+    font-weight: 800;
+    line-height: 1.35;
+    transition: color 160ms ease;
+  }
+
+  .procedure-category-link:hover {
+    color: var(--color-blue);
+  }
+
+  .procedure-detail-link {
+    display: block;
+    border-radius: 0.35rem;
+    padding: 0.17rem 0;
+    color: var(--color-body);
+    font-size: 0.73rem;
+    font-weight: 600;
+    line-height: 1.4;
+    transition: color 160ms ease, transform 160ms ease;
+  }
+
+  .procedure-detail-link:hover,
+  .procedure-detail-active {
+    color: var(--color-blue);
+    transform: translateX(0.2rem);
+  }
+
+  .mobile-nav-group,
+  .mobile-flat-link {
+    border-bottom: 1px solid color-mix(in srgb, var(--color-navy) 13%, transparent);
+  }
+
+  .mobile-nav-summary,
+  .mobile-flat-link {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-radius: 0.9rem;
+    padding: 0.9rem 0.75rem;
+    color: var(--color-body);
+    font-weight: 750;
+  }
+
+  .mobile-nav-summary-active {
+    background: var(--color-air);
+    color: var(--color-navy);
+  }
+
+  .mobile-link-list {
+    padding: 0.25rem 0.5rem 0.8rem 1rem;
+  }
+
+  .mobile-nav-link,
+  .mobile-detail-link {
+    display: block;
+    border-radius: 0.55rem;
+    padding: 0.56rem 0.7rem;
+    color: var(--color-body);
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .mobile-nav-link-active {
+    background: color-mix(in srgb, var(--color-air) 78%, transparent);
+    color: var(--color-blue);
+  }
+
+  .mobile-procedure-group {
+    border-top: 1px solid color-mix(in srgb, var(--color-navy) 10%, transparent);
+  }
+
+  .mobile-procedure-summary {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.72rem 0.7rem;
+    color: var(--color-navy);
+    font-size: 0.9rem;
+    font-weight: 800;
+  }
+
+  .mobile-detail-link {
+    font-size: 0.84rem;
+  }
+
+  @media (min-width: 1280px) {
+    .nav-trigger {
+      padding: 0.5rem 0.75rem;
+      font-size: 0.875rem;
+    }
+  }
+
+  @media (max-width: 1130px) and (min-width: 1024px) {
+    .nav-trigger {
+      gap: 0.2rem;
+      padding-inline: 0.25rem;
+      font-size: 0.64rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .nav-disclosure[open] > .compact-panel,
+    .nav-disclosure[open] > .mega-panel {
+      animation: menu-in 150ms ease-out both;
+    }
+
+    @keyframes menu-in {
+      from { opacity: 0; translate: 0 -0.35rem; }
+      to { opacity: 1; translate: 0 0; }
+    }
+  }
+</style>

@@ -1,0 +1,123 @@
+---
+import InteriorLayout from "../../layouts/InteriorLayout.astro";
+import { procedureDetails } from "../../lib/procedure-details";
+import { procedureCategories, type ProcedureCategory } from "../../lib/procedures";
+
+export function getStaticPaths() {
+  return procedureCategories.map((category) => ({
+    params: { category: category.slug },
+    props: { category },
+  }));
+}
+
+interface Props {
+  category: ProcedureCategory;
+}
+
+const { category } = Astro.props;
+const otherCategories = procedureCategories.filter((item) => item.slug !== category.slug);
+const detailPages = procedureDetails.filter((item) => item.categorySlug === category.slug);
+---
+
+<InteriorLayout
+  title={`${category.title} | Eastland Family Dental`}
+  description={category.intro}
+  path={`/procedures/${category.slug}/`}
+  eyebrow={category.eyebrow}
+  heading={category.heading}
+  intro={category.intro}
+>
+  <section class="overflow-x-clip px-4 py-10 sm:py-16">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div class="reveal reveal-left py-2">
+        <a class="text-sm font-bold text-blue" href="/procedures/">← All procedures</a>
+        <h2 class="mt-8 font-heading text-4xl leading-tight sm:text-5xl">{category.overviewTitle}</h2>
+        <div class="mt-6 space-y-5 text-lg leading-relaxed text-body">
+          {category.overview.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+      </div>
+
+      <div class="reveal reveal-right border-t border-navy/15">
+        <p class="border-b border-navy/15 py-5 text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">{category.itemsLabel}</p>
+        {category.items.map((item) => (
+          <article class="grid gap-3 border-b border-navy/15 py-6 sm:grid-cols-[.72fr_1.28fr] sm:gap-8">
+            <h3 class="text-xl font-bold text-navy">{item.title}</h3>
+            <p class="leading-relaxed text-body">{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {detailPages.length > 0 && (
+    <section class="border-y border-navy/10 bg-white px-4 py-12 sm:py-16">
+      <div class="mx-auto max-w-7xl">
+        <div class="reveal max-w-3xl">
+          <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Detailed treatment guides</p>
+          <h2 class="mt-4 font-heading text-4xl leading-tight sm:text-5xl">Learn what each option is designed to do.</h2>
+          <p class="mt-5 max-w-2xl text-lg leading-relaxed text-body">Explore general information about evaluation, treatment, and the questions worth discussing at your visit.</p>
+        </div>
+
+        <div class="mt-10 border-t border-navy/15">
+          {detailPages.map((detail, index) => (
+            <a
+              class="group reveal grid gap-3 border-b border-navy/15 py-7 sm:grid-cols-[.7fr_1.3fr] sm:items-start sm:gap-10"
+              href={`/procedures/${detail.categorySlug}/${detail.slug}/`}
+              style={`--reveal-delay:${Math.min(index * 45, 225)}ms`}
+            >
+              <span class="flex items-start justify-between gap-5 text-xl font-bold text-navy">
+                {detail.title}
+                <span class="text-blue transition group-hover:translate-x-1" aria-hidden="true">→</span>
+              </span>
+              <span class="leading-relaxed text-body">{detail.intro}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="bg-air px-4 py-12 sm:py-16">
+    <div class="mx-auto max-w-7xl">
+      <div class="reveal max-w-3xl">
+        <p class="text-xs font-bold tracking-[.2em] text-blue uppercase">A more useful conversation</p>
+        <h2 class="mt-4 font-heading text-4xl leading-tight sm:text-5xl">{category.discussionTitle}</h2>
+      </div>
+      <div class="mt-9 grid border-t border-navy/15 md:grid-cols-3">
+        {category.discussionPoints.map((point, index) => (
+          <div class:list={["reveal py-7 md:px-8", index > 0 && "border-t border-navy/15 md:border-t-0 md:border-l"]} style={`--reveal-delay:${index * 70}ms`}>
+            <p class="font-heading text-2xl leading-snug text-navy">{point}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="overflow-x-clip px-4 py-12 sm:py-16">
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.75fr_1.25fr] lg:gap-20">
+      <div class="reveal reveal-left">
+        <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Reliable patient education</p>
+        <h2 class="mt-4 font-heading text-3xl leading-tight sm:text-4xl">Understand the recommendation before deciding.</h2>
+        {category.note && <p class="mt-5 max-w-xl leading-relaxed text-body">{category.note}</p>}
+        <div class="mt-6 flex flex-col items-start gap-3">
+          {category.sources.map((source) => (
+            <a class="font-bold text-blue underline decoration-blue/30 underline-offset-4 hover:decoration-blue" href={source.href} target="_blank" rel="noreferrer">
+              {source.label}<span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <div class="reveal reveal-right border-t border-navy/15">
+        <p class="border-b border-navy/15 py-5 text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Explore another area</p>
+        <div class="grid sm:grid-cols-2">
+          {otherCategories.map((item, index) => (
+            <a class:list={["group flex items-center justify-between gap-4 border-b border-navy/15 py-5 font-bold text-navy", index % 2 === 0 ? "sm:pr-6" : "sm:border-l sm:pl-6"]} href={`/procedures/${item.slug}/`}>
+              <span>{item.title}</span><span class="text-blue transition group-hover:translate-x-1" aria-hidden="true">→</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</InteriorLayout>

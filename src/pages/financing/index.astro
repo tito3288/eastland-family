@@ -1,0 +1,42 @@
+---
+import InteriorLayout from "../../layouts/InteriorLayout.astro";
+import { practice } from "../../lib/practice";
+---
+
+<InteriorLayout
+  title="Dental Financing | Eastland Family Dental"
+  description="Learn about CareCredit financing and accepted payment methods at Eastland Family Dental in Independence, MO."
+  path="/financing/"
+  eyebrow="Payment options"
+  heading="More flexibility for your dental care."
+  intro="Eastland Family Dental accepts CareCredit, a healthcare credit card that can help eligible patients pay for dental treatment over time."
+>
+  <section class="px-4 py-10 sm:py-16">
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.15fr_.85fr] lg:items-start lg:gap-16">
+      <div class="reveal reveal-left py-3">
+        <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">CareCredit</p>
+        <h2 class="mt-4 font-heading text-4xl leading-tight">A healthcare credit card for planned dental expenses.</h2>
+        <p class="mt-5 max-w-3xl text-lg leading-relaxed text-body">CareCredit may be used for dental procedures and general care that are not covered by insurance. Approved cardholders can make monthly payments according to the terms provided by CareCredit.</p>
+        <p class="mt-4 max-w-2xl text-sm leading-relaxed text-caption">Subject to credit approval. Minimum monthly payments may be required. Review current terms directly with CareCredit before applying.</p>
+        <a class="mt-6 inline-flex font-bold text-blue underline decoration-blue/25 underline-offset-4" href={practice.financing.learnMoreUrl} target="_blank" rel="noopener noreferrer">Review CareCredit information ↗</a>
+      </div>
+      <aside class="reveal reveal-right rounded-4xl bg-sand p-6 sm:rounded-5xl sm:p-8">
+        <h3 class="text-2xl font-bold text-navy">Other accepted payments</h3>
+        <p class="mt-3 leading-relaxed text-body">The office accepts cash, personal checks, debit cards, and most major credit cards. Payment is expected when services are performed.</p>
+        <a class="mt-6 inline-flex rounded-full bg-navy px-6 py-3 font-bold text-white" href="/contact/">Ask a payment question</a>
+      </aside>
+    </div>
+  </section>
+  <section class="bg-air px-4 py-12 sm:py-16">
+    <div class="mx-auto grid max-w-7xl gap-8 md:grid-cols-[1fr_auto] md:items-center md:gap-14">
+      <div class="reveal reveal-left">
+        <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Ready to apply?</p>
+        <h2 class="mt-4 font-heading text-4xl leading-tight">Continue with CareCredit.</h2>
+        <p class="mt-4 max-w-2xl leading-relaxed text-body">The application is completed on CareCredit’s website. CareCredit provides the application decision and current account terms.</p>
+      </div>
+      <div class="reveal reveal-right border-t border-navy/15 pt-7 md:border-t-0 md:border-l md:pt-0 md:pl-14">
+        <a class="inline-flex rounded-full bg-navy px-7 py-4 font-bold text-white" href={practice.financing.applyUrl} target="_blank" rel="noopener noreferrer">Start an application ↗</a>
+      </div>
+    </div>
+  </section>
+</InteriorLayout>

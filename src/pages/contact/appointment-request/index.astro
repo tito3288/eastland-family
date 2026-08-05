@@ -1,0 +1,312 @@
+---
+import InteriorLayout from "../../../layouts/InteriorLayout.astro";
+import OfficeDetails from "../../../components/OfficeDetails.astro";
+import { practice } from "../../../lib/practice";
+import { appointmentFormEnabled } from "../../../lib/features";
+---
+
+<InteriorLayout
+  title="Appointment Request | Eastland Family Dental"
+  description="Request a dental appointment with Eastland Family Dental in Independence, MO. Call the office and our scheduling coordinator will confirm your visit."
+  path="/contact/appointment-request/"
+  eyebrow="Appointments"
+  heading="Let’s find a time for your visit."
+  intro={appointmentFormEnabled
+    ? "Send an online request or call our office. Our scheduling coordinator will help find a time and confirm the details of your visit."
+    : "Call or email the office to request an appointment. Our scheduling coordinator will help find a time and confirm the details of your visit."}
+  showContactCta={false}
+>
+  {appointmentFormEnabled ? (
+  <section class="px-4 py-10 sm:py-14" data-appointment-form-enabled>
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[1.25fr_.75fr] lg:items-start lg:gap-16">
+      <div class="reveal reveal-left py-4">
+        <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Online appointment request</p>
+        <h2 class="mt-4 max-w-3xl font-heading text-4xl leading-tight md:text-5xl">Tell the team what works for you.</h2>
+        <p class="mt-5 max-w-3xl text-lg leading-relaxed text-body">Share your contact information and general scheduling preferences. A member of the office team will follow up to confirm the actual appointment time.</p>
+
+        <form id="appointment-form" class="mt-9 border-t border-navy/15 pt-8" action="/api/appointment" method="post">
+          <input id="startedAt" name="startedAt" type="hidden" value="" />
+          <div class="form-honeypot" aria-hidden="true">
+            <label for="website">Website</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="grid gap-x-6 gap-y-5 sm:grid-cols-2">
+            <label class="form-label sm:col-span-2">
+              <span>Full name <span aria-hidden="true">*</span></span>
+              <input class="form-control" name="name" type="text" autocomplete="name" maxlength="100" required />
+            </label>
+
+            <label class="form-label">
+              <span>Email <span aria-hidden="true">*</span></span>
+              <input class="form-control" name="email" type="email" autocomplete="email" maxlength="160" required />
+            </label>
+
+            <label class="form-label">
+              <span>Phone <span aria-hidden="true">*</span></span>
+              <input class="form-control" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="30" required />
+            </label>
+
+            <label class="form-label">
+              <span>Are you a current patient? <span aria-hidden="true">*</span></span>
+              <select class="form-control" name="patientStatus" required>
+                <option value="" selected disabled>Select one</option>
+                <option>New patient</option>
+                <option>Current patient</option>
+              </select>
+            </label>
+
+            <label class="form-label">
+              <span>Preferred time <span aria-hidden="true">*</span></span>
+              <select class="form-control" name="preferredTime" required>
+                <option value="" selected disabled>Select one</option>
+                <option>Any time</option>
+                <option>Morning</option>
+                <option>Afternoon</option>
+              </select>
+            </label>
+
+            <label class="form-label sm:col-span-2">
+              <span>General appointment type <span aria-hidden="true">*</span></span>
+              <select class="form-control" name="appointmentType" required>
+                <option value="" selected disabled>Select one</option>
+                <option>Exam or cleaning</option>
+                <option>Dental concern or discomfort</option>
+                <option>Cosmetic consultation</option>
+                <option>Restorative consultation</option>
+                <option>Child’s dental visit</option>
+                <option>Other</option>
+              </select>
+            </label>
+          </div>
+
+          <fieldset class="mt-6" aria-describedby="preferred-days-note preferred-days-error">
+            <legend class="text-sm font-bold text-navy">Preferred day(s) <span aria-hidden="true">*</span></legend>
+            <p id="preferred-days-note" class="mt-1 text-sm text-caption">Choose any days that generally work for you.</p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              {['Any day', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'].map((day) => (
+                <label class="day-choice">
+                  <input name="preferredDays" type="checkbox" value={day} />
+                  <span>{day}</span>
+                </label>
+              ))}
+            </div>
+            <p id="preferred-days-error" class="mt-2 hidden text-sm font-semibold text-red-700">Please select at least one preferred day.</p>
+          </fieldset>
+
+          <label class="form-label mt-6">
+            <span>Optional note</span>
+            <textarea class="form-control min-h-28 resize-y" name="message" maxlength="500" aria-describedby="message-note"></textarea>
+          </label>
+          <p id="message-note" class="mt-2 text-sm leading-relaxed text-caption">Please keep this brief and do not include private medical details. Call the office about urgent concerns.</p>
+
+          <label class="mt-6 flex items-start gap-3 text-sm leading-relaxed text-body">
+            <input class="mt-1 h-4 w-4 shrink-0 accent-navy" name="consent" type="checkbox" required />
+            <span>I understand this is a request and that my appointment is not confirmed until the office contacts me.</span>
+          </label>
+
+          <div class="mt-7 flex flex-col gap-4 sm:flex-row sm:items-center">
+            <button id="appointment-submit" class="rounded-full bg-navy px-8 py-4 font-bold text-white transition hover:bg-blue disabled:cursor-wait disabled:opacity-65" type="submit">Send Appointment Request</button>
+            <p class="text-sm leading-relaxed text-caption">Prefer to call? <a class="font-bold text-navy underline decoration-navy/25 underline-offset-4" href={practice.phoneHref}>{practice.phoneDisplay}</a></p>
+          </div>
+
+          <p id="appointment-status" class="form-status mt-5 hidden rounded-2xl px-4 py-3 text-sm font-semibold" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <OfficeDetails />
+    </div>
+  </section>
+  ) : (
+  <section class="px-4 py-10 sm:py-14" data-appointment-form-disabled>
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[1.15fr_.85fr] lg:items-start lg:gap-16">
+      <div class="reveal reveal-left py-4 lg:py-8">
+        <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Request a visit</p>
+        <h2 class="mt-4 max-w-2xl font-heading text-4xl leading-tight">Contact the office to find a time.</h2>
+        <p class="mt-5 max-w-2xl text-lg leading-relaxed text-body">Online appointment requests are not currently available. Call for the most direct scheduling help, email a general question, or open directions before your visit.</p>
+        <div class="mt-8 border-y border-navy/15">
+          <a class="group grid gap-2 border-b border-navy/15 py-5 sm:grid-cols-[11rem_1fr_auto] sm:items-center" href={practice.phoneHref}>
+            <span class="text-sm font-bold tracking-[.16em] text-eucalyptus uppercase">Call the office</span>
+            <strong class="text-xl text-navy">{practice.phoneDisplay}</strong>
+            <span class="text-blue transition group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+          <a class="group grid gap-2 border-b border-navy/15 py-5 sm:grid-cols-[11rem_1fr_auto] sm:items-center" href={`mailto:${practice.email}`}>
+            <span class="text-sm font-bold tracking-[.16em] text-eucalyptus uppercase">Send an email</span>
+            <strong class="break-all text-base text-navy sm:text-lg">{practice.email}</strong>
+            <span class="text-blue transition group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+          <a class="group grid gap-2 py-5 sm:grid-cols-[11rem_1fr_auto] sm:items-center" href={practice.mapsUrl} target="_blank" rel="noopener noreferrer">
+            <span class="text-sm font-bold tracking-[.16em] text-eucalyptus uppercase">Get directions</span>
+            <strong class="text-lg text-navy">{practice.address.street}, {practice.address.cityStateZip}</strong>
+            <span class="text-blue transition group-hover:translate-x-1" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+      <OfficeDetails showAfterHours />
+    </div>
+  </section>
+  )}
+
+<script>
+  const form = document.getElementById("appointment-form");
+  const startedAt = document.getElementById("startedAt");
+  const submitButton = document.getElementById("appointment-submit");
+  const statusMessage = document.getElementById("appointment-status");
+  const daysError = document.getElementById("preferred-days-error");
+
+  if (
+    form instanceof HTMLFormElement &&
+    startedAt instanceof HTMLInputElement &&
+    submitButton instanceof HTMLButtonElement &&
+    statusMessage instanceof HTMLParagraphElement &&
+    daysError instanceof HTMLParagraphElement
+  ) {
+    startedAt.value = String(Date.now());
+    const dayCheckboxes = Array.from(form.querySelectorAll<HTMLInputElement>('input[name="preferredDays"]'));
+
+    const setStatus = (message: string, state: "success" | "error") => {
+      statusMessage.textContent = message;
+      statusMessage.dataset.state = state;
+      statusMessage.classList.remove("hidden");
+    };
+
+    dayCheckboxes.forEach((checkbox) => {
+      checkbox.addEventListener("change", () => {
+        daysError.classList.add("hidden");
+        if (!checkbox.checked) return;
+        if (checkbox.value === "Any day") {
+          dayCheckboxes.forEach((other) => {
+            if (other !== checkbox) other.checked = false;
+          });
+        } else {
+          const anyDay = dayCheckboxes.find((item) => item.value === "Any day");
+          if (anyDay) anyDay.checked = false;
+        }
+      });
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      statusMessage.classList.add("hidden");
+
+      const formData = new FormData(form);
+      const preferredDays = formData.getAll("preferredDays").map(String);
+      if (preferredDays.length === 0) {
+        daysError.classList.remove("hidden");
+        dayCheckboxes[0]?.focus();
+        return;
+      }
+
+      const payload: Record<string, unknown> = Object.fromEntries(formData.entries());
+      payload.preferredDays = preferredDays;
+      payload.consent = formData.get("consent") === "on";
+      payload.startedAt = startedAt.value;
+
+      submitButton.disabled = true;
+      submitButton.setAttribute("aria-busy", "true");
+      const originalLabel = submitButton.textContent;
+      submitButton.textContent = "Sending…";
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+        const result = await response.json().catch(() => null);
+
+        if (!response.ok || !result?.ok) {
+          throw new Error(result?.message || "We could not send your request right now. Please call the office instead.");
+        }
+
+        setStatus(result.message, "success");
+        form.reset();
+        startedAt.value = String(Date.now());
+      } catch (error) {
+        setStatus(error instanceof Error ? error.message : "We could not send your request right now. Please call the office instead.", "error");
+      } finally {
+        submitButton.disabled = false;
+        submitButton.removeAttribute("aria-busy");
+        submitButton.textContent = originalLabel;
+      }
+    });
+  }
+</script>
+
+<style>
+  .form-label {
+    display: block;
+    color: var(--color-navy);
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  .form-control {
+    margin-top: 0.5rem;
+    width: 100%;
+    border: 1px solid color-mix(in srgb, var(--color-navy) 18%, transparent);
+    border-radius: 1rem;
+    background: white;
+    padding: 0.8rem 1rem;
+    color: var(--color-navy);
+    font-size: 1rem;
+    font-weight: 500;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  .form-control:focus {
+    border-color: var(--color-blue);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-blue) 15%, transparent);
+  }
+
+  .day-choice {
+    cursor: pointer;
+  }
+
+  .day-choice input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .day-choice span {
+    display: block;
+    border: 1px solid color-mix(in srgb, var(--color-navy) 16%, transparent);
+    border-radius: 9999px;
+    background: white;
+    padding: 0.62rem 0.9rem;
+    color: var(--color-body);
+    font-size: 0.875rem;
+    font-weight: 700;
+    transition: border-color 160ms ease, background-color 160ms ease, color 160ms ease;
+  }
+
+  .day-choice input:checked + span {
+    border-color: var(--color-navy);
+    background: var(--color-navy);
+    color: white;
+  }
+
+  .day-choice input:focus-visible + span {
+    outline: 3px solid var(--color-blue);
+    outline-offset: 3px;
+  }
+
+  .form-honeypot {
+    position: absolute;
+    left: -10000px;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+  }
+
+  .form-status[data-state="success"] {
+    background: #e7f6ee;
+    color: #14532d;
+  }
+
+  .form-status[data-state="error"] {
+    background: #fef2f2;
+    color: #991b1b;
+  }
+</style>
+</InteriorLayout>

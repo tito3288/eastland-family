@@ -1,0 +1,47 @@
+---
+import InteriorLayout from "../../layouts/InteriorLayout.astro";
+import { procedureCategories } from "../../lib/procedures";
+import { appointmentHref } from "../../lib/features";
+---
+
+<InteriorLayout
+  title="Dental Procedures | Eastland Family Dental"
+  description="Explore preventive, cosmetic, periodontal, restorative, oral surgery, endodontic, and children’s dental care at Eastland Family Dental."
+  path="/procedures/"
+  eyebrow="Dental procedures"
+  heading="Care organized around what your smile needs next."
+  intro="From routine prevention to rebuilding damaged teeth, these service areas provide a clear starting point for understanding your options."
+>
+  <section class="px-4 py-10 sm:py-16">
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.58fr_1.42fr] lg:gap-20">
+      <div class="reveal reveal-left py-2">
+        <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Seven areas of care</p>
+        <h2 class="mt-4 font-heading text-4xl leading-tight sm:text-5xl">Begin with the concern, not the procedure name.</h2>
+        <p class="mt-5 max-w-md text-lg leading-relaxed text-body">A dental examination helps connect symptoms and goals to the right category of care. If you are unsure where something belongs, the office can help you start in the right place.</p>
+      </div>
+
+      <div class="reveal reveal-right border-t border-navy/15">
+        {procedureCategories.map((category, index) => (
+          <a class="group grid gap-4 border-b border-navy/15 py-7 sm:grid-cols-[3rem_1fr_auto] sm:items-start sm:gap-7" href={`/procedures/${category.slug}/`}>
+            <span class="font-heading text-2xl text-eucalyptus">{String(index + 1).padStart(2, "0")}</span>
+            <span>
+              <span class="block text-2xl font-bold text-navy sm:text-3xl">{category.title}</span>
+              <span class="mt-3 block max-w-2xl leading-relaxed text-body">{category.hubDescription}</span>
+            </span>
+            <span class="font-bold text-blue transition group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-air px-4 py-12 sm:py-16">
+    <div class="reveal mx-auto grid max-w-7xl gap-8 lg:grid-cols-[1fr_auto] lg:items-center">
+      <div>
+        <p class="text-xs font-bold tracking-[.2em] text-blue uppercase">Not sure where to begin?</p>
+        <h2 class="mt-4 max-w-3xl font-heading text-4xl leading-tight sm:text-5xl">Tell the team what you are noticing or hoping to change.</h2>
+      </div>
+      <a class="inline-flex justify-center rounded-full bg-navy px-7 py-4 font-bold text-white" href={appointmentHref}>Request an appointment</a>
+    </div>
+  </section>
+</InteriorLayout>

@@ -1,0 +1,32 @@
+---
+import ProcedureDetailLayout from "../../../layouts/ProcedureDetailLayout.astro";
+import { procedureCategories, type ProcedureCategory } from "../../../lib/procedures";
+import { procedureDetails } from "../../../lib/procedure-details";
+import type { ProcedureDetail } from "../../../lib/procedure-details/types";
+
+export function getStaticPaths() {
+  return procedureDetails.map((detail) => {
+    const category = procedureCategories.find((item) => item.slug === detail.categorySlug);
+    if (!category) throw new Error(`Missing procedure category for ${detail.categorySlug}/${detail.slug}`);
+
+    return {
+      params: { category: detail.categorySlug, service: detail.slug },
+      props: {
+        detail,
+        category,
+        related: procedureDetails.filter((item) => item.categorySlug === detail.categorySlug && item.slug !== detail.slug),
+      },
+    };
+  });
+}
+
+interface Props {
+  detail: ProcedureDetail;
+  category: ProcedureCategory;
+  related: ProcedureDetail[];
+}
+
+const { detail, category, related } = Astro.props;
+---
+
+<ProcedureDetailLayout detail={detail} category={category} related={related} />

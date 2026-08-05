@@ -1,0 +1,67 @@
+---
+import InteriorLayout from "../../../layouts/InteriorLayout.astro";
+import { practice } from "../../../lib/practice";
+
+const steps = [
+  {
+    number: "01",
+    title: "Confirm the requested care",
+    description: "Call the office before sending a patient to confirm that the requested evaluation or treatment fits the services currently provided by the general dental practice.",
+  },
+  {
+    number: "02",
+    title: "Ask how records should be transferred",
+    description: "The team can explain which radiographs, clinical notes, medication information, or other records are useful and provide the appropriate secure transfer method.",
+  },
+  {
+    number: "03",
+    title: "Share the purpose and urgency",
+    description: "Include the clinical question, relevant treatment history, symptoms, and requested timing so the office can review the handoff and communicate the next step.",
+  },
+];
+---
+
+<InteriorLayout
+  title="Referring Doctors | Eastland Family Dental"
+  description="Contact Eastland Family Dental to coordinate a professional referral and arrange the secure transfer of relevant patient records."
+  path="/patient-information/referring-doctors/"
+  eyebrow="Professional referrals"
+  heading="A clear handoff begins with a quick conversation."
+  intro="Dental professionals can contact Eastland Family Dental to confirm the requested service, discuss timing, and arrange an appropriate method for transferring patient records."
+>
+  <section class="overflow-x-clip px-4 py-10 sm:py-16">
+    <div class="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.52fr_1fr] lg:gap-20">
+      <aside class="reveal reveal-left lg:sticky lg:top-32 lg:self-start">
+        <a class="text-sm font-bold text-blue" href="/patient-information/">← Patient information</a>
+        <p class="mt-8 text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Referral coordination</p>
+        <h2 class="mt-4 font-heading text-3xl leading-tight sm:text-4xl">Call {practice.phoneDisplay}</h2>
+        <p class="mt-5 max-w-sm leading-relaxed text-body">Eastland Family Dental is a general dental practice. Please verify the requested service and current availability before directing a patient to the office.</p>
+        <a class="mt-6 inline-flex rounded-full bg-navy px-6 py-3 font-bold text-white" href={practice.phoneHref}>Call the office</a>
+      </aside>
+
+      <div class="reveal reveal-right border-t border-navy/15">
+        <p class="border-b border-navy/15 py-5 text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">A practical referral process</p>
+        {steps.map((step) => (
+          <article class="grid gap-4 border-b border-navy/15 py-7 sm:grid-cols-[auto_.7fr_1.3fr] sm:gap-8">
+            <span class="font-heading text-2xl text-blue" aria-hidden="true">{step.number}</span>
+            <h3 class="text-xl font-bold text-navy">{step.title}</h3>
+            <p class="leading-relaxed text-body">{step.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-air px-4 py-12 sm:py-16">
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.8fr_1.2fr] lg:gap-20">
+      <div class="reveal reveal-left">
+        <p class="text-xs font-bold tracking-[.2em] text-blue uppercase">Protect patient information</p>
+        <h2 class="mt-4 font-heading text-3xl leading-tight sm:text-4xl">Use the transfer method provided by the office.</h2>
+      </div>
+      <div class="reveal reveal-right border-t border-navy/15 pt-7 text-lg leading-relaxed text-body">
+        <p>Do not place protected health information in a general email. Call first so the team can provide current instructions for records and confirm what should be included.</p>
+        <p class="mt-5">Patients who were referred by another office can also call directly. Have the referring practice’s name, the reason for referral, and any timing concerns available when scheduling.</p>
+      </div>
+    </div>
+  </section>
+</InteriorLayout>

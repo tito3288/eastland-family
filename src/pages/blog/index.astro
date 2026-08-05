@@ -1,0 +1,37 @@
+---
+import InteriorLayout from "../../layouts/InteriorLayout.astro";
+import { blogPosts } from "../../lib/blog";
+---
+
+<InteriorLayout
+  title="Dental Blog | Eastland Family Dental"
+  description="Read practical dental education from Eastland Family Dental on home care, cosmetic options, TMD, and dental extractions."
+  path="/blog/"
+  eyebrow="Dental education"
+  heading="Useful information for a healthier smile."
+  intro="Clear, practical reading about oral health and common dental questions—reviewed against trusted professional sources."
+>
+  <section class="px-4 py-10 sm:py-16">
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.6fr_1.4fr] lg:gap-20">
+      <div class="reveal reveal-left py-2">
+        <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">From the practice</p>
+        <h2 class="mt-4 font-heading text-4xl leading-tight sm:text-5xl">Four focused guides. No filler.</h2>
+        <p class="mt-5 max-w-md text-lg leading-relaxed text-body">These articles are general education, not a diagnosis. If something is painful, changing, or worrying you, contact a dental professional.</p>
+      </div>
+
+      <div class="reveal reveal-right border-t border-navy/15">
+        {blogPosts.map((post, index) => (
+          <a class="group grid gap-4 border-b border-navy/15 py-7 sm:grid-cols-[3rem_1fr_auto] sm:items-start sm:gap-7" href={`/${post.slug}/`}>
+            <span class="font-heading text-2xl text-eucalyptus">{String(index + 1).padStart(2, "0")}</span>
+            <span>
+              <span class="text-xs font-bold tracking-[.16em] text-blue uppercase">{post.category} · {post.date}</span>
+              <span class="mt-3 block text-2xl font-bold text-navy sm:text-3xl">{post.title}</span>
+              <span class="mt-3 block max-w-2xl leading-relaxed text-body">{post.summary}</span>
+            </span>
+            <span class="font-bold text-blue transition group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</InteriorLayout>

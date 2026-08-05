@@ -16,7 +16,91 @@
     mobileMenu.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => setMenuOpen(false));
     });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !mobileMenu.classList.contains("hidden")) {
+        setMenuOpen(false);
+        menuButton.focus();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth >= 1024) setMenuOpen(false);
+    });
   }
+
+  const desktopMenus = Array.from(document.querySelectorAll<HTMLDetailsElement>("[data-desktop-menu]"));
+  const desktopHoverQuery = window.matchMedia("(min-width: 1024px) and (hover: hover) and (pointer: fine)");
+  const menuCloseTimers = new WeakMap<HTMLDetailsElement, number>();
+
+  const cancelScheduledClose = (menu: HTMLDetailsElement) => {
+    const timer = menuCloseTimers.get(menu);
+    if (timer === undefined) return;
+    window.clearTimeout(timer);
+    menuCloseTimers.delete(menu);
+  };
+
+  const scheduleMenuClose = (menu: HTMLDetailsElement) => {
+    cancelScheduledClose(menu);
+    const timer = window.setTimeout(() => {
+      menu.open = false;
+      menuCloseTimers.delete(menu);
+    }, 220);
+    menuCloseTimers.set(menu, timer);
+  };
+
+  desktopMenus.forEach((menu) => {
+    const summary = menu.querySelector(":scope > summary");
+
+    menu.addEventListener("pointerenter", () => {
+      if (!desktopHoverQuery.matches) return;
+      cancelScheduledClose(menu);
+      menu.open = true;
+    });
+
+    menu.addEventListener("pointerleave", () => {
+      if (!desktopHoverQuery.matches) return;
+      scheduleMenuClose(menu);
+    });
+
+    summary?.addEventListener("click", (event) => {
+      if (!desktopHoverQuery.matches || !(event instanceof MouseEvent) || event.detail === 0) return;
+      event.preventDefault();
+      cancelScheduledClose(menu);
+      menu.open = true;
+    });
+
+    menu.addEventListener("toggle", () => {
+      if (!menu.open) return;
+      desktopMenus.forEach((otherMenu) => {
+        if (otherMenu !== menu) otherMenu.open = false;
+      });
+    });
+
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        menu.open = false;
+      });
+    });
+  });
+
+  document.addEventListener("pointerdown", (event) => {
+    const target = event.target;
+    if (!(target instanceof Node) || desktopMenus.some((menu) => menu.contains(target))) return;
+    desktopMenus.forEach((menu) => {
+      cancelScheduledClose(menu);
+      menu.open = false;
+    });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    const openMenu = desktopMenus.find((menu) => menu.open);
+    if (!openMenu) return;
+    cancelScheduledClose(openMenu);
+    openMenu.open = false;
+    openMenu.querySelector("summary")?.focus();
+  });
 
   const revealEls = Array.from(document.querySelectorAll(".reveal"));
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

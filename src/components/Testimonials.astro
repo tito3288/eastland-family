@@ -1,7 +1,13 @@
 ---
 const testimonials = [
-  "“The team made my visit feel relaxed and helped me understand what came next.”",
-  "“A convenient family dental office with thoughtful care and friendly communication.”",
+  {
+    quote: "“Dr. Ashworth is friendly, funny, and educates his patients well.”",
+    name: "Katie W.",
+  },
+  {
+    quote: "“The entire staff was welcoming and great.”",
+    name: "Shawn Force",
+  },
 ];
 ---
 
@@ -12,11 +18,11 @@ const testimonials = [
       <h2 class="mt-4 font-heading text-4xl leading-tight md:text-5xl">Kind, clear, and family-focused.</h2>
     </div>
     <div class="grid gap-5 md:grid-cols-2">
-      {testimonials.map((quote, index) => (
+      {testimonials.map((testimonial, index) => (
         <article class="reveal glow rounded-4xl bg-white p-6 sm:rounded-5xl sm:p-8" style={`--reveal-delay:${index === 0 ? "80ms" : "160ms"}`}>
-          <div class="text-blue" aria-label="Five-star rating"><span aria-hidden="true">★★★★★</span></div>
-          <p class="mt-5 text-lg sm:text-xl">{quote}</p>
-          <p class="mt-5 text-sm text-caption">Representative patient feedback</p>
+          <p class="text-xs font-bold tracking-[.18em] text-blue uppercase">Patient review</p>
+          <p class="mt-5 text-lg sm:text-xl">{testimonial.quote}</p>
+          <p class="mt-5 text-sm font-semibold text-caption">{testimonial.name}</p>
         </article>
       ))}
     </div>

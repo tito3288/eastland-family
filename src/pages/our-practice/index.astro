@@ -1,0 +1,101 @@
+---
+import InteriorLayout from "../../layouts/InteriorLayout.astro";
+
+const technology = [
+  {
+    number: "01",
+    title: "CBCT imaging",
+    description: "A cone-beam CT scanner can create detailed digital images that support treatment planning and the design of dental appliances.",
+  },
+  {
+    number: "02",
+    title: "Same-day CEREC crowns",
+    description: "In-house CEREC technology allows the practice to design and create many crowns in a single visit.",
+  },
+  {
+    number: "03",
+    title: "Digital impressions",
+    description: "Digital impressions help plan appliances such as dentures, bridges, veneers, and whitening trays produced with trusted dental laboratories.",
+  },
+];
+---
+
+<InteriorLayout
+  title="Our Practice | Eastland Family Dental"
+  description="Learn about Eastland Family Dental’s family-focused care, modern dental technology, and Independence, MO office."
+  path="/our-practice/"
+  eyebrow="Our practice"
+  heading="Modern dentistry with a family-first approach."
+  intro="Eastland Family Dental combines full-service care, clear communication, and advanced technology in a welcoming Independence office."
+>
+  <section class="px-4 py-10 sm:py-16">
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[.72fr_1.28fr] lg:gap-20">
+      <div class="reveal reveal-left py-2">
+        <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">A long-term dental home</p>
+        <h2 class="mt-4 font-heading text-4xl leading-tight sm:text-5xl">Care for routine needs and more complex treatment.</h2>
+      </div>
+      <div class="reveal reveal-right border-t border-navy/15 pt-7 text-lg leading-relaxed text-body">
+        <p>Patients can visit the practice for routine examinations, restorative treatment, and cosmetic improvements. Dr. Glenn Ashworth and the team focus on helping children and adults understand their options and feel comfortable asking questions.</p>
+        <p class="mt-5">The goal is practical: build trust over time, use technology where it improves care, and make each visit feel thoughtful rather than rushed.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-air px-4 py-12 sm:py-18">
+    <div class="mx-auto max-w-7xl">
+      <div class="reveal max-w-3xl">
+        <p class="text-xs font-bold tracking-[.2em] text-blue uppercase">Technology with a purpose</p>
+        <h2 class="mt-4 font-heading text-4xl leading-tight sm:text-5xl">Better information. More efficient visits.</h2>
+      </div>
+      <div class="mt-10 grid border-t border-navy/15 md:grid-cols-3">
+        {technology.map((item, index) => (
+          <article class:list={["reveal py-8 md:px-8", index > 0 && "border-t border-navy/15 md:border-t-0 md:border-l"]} style={`--reveal-delay:${index * 70}ms`}>
+            <p class="text-sm font-bold text-blue">{item.number}</p>
+            <h3 class="mt-8 text-2xl font-bold text-navy">{item.title}</h3>
+            <p class="mt-4 leading-relaxed text-body">{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 py-12 sm:py-18">
+    <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-2 lg:gap-20">
+      <div class="reveal reveal-left">
+        <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Comfort and communication</p>
+        <h2 class="mt-4 font-heading text-4xl leading-tight sm:text-5xl">A calmer experience for children and adults.</h2>
+        <p class="mt-6 text-lg leading-relaxed text-body">The team explains treatment clearly and welcomes questions from patients and family members. Nitrous oxide is available for children and adults who may need additional help relaxing during care.</p>
+      </div>
+      <div class="reveal reveal-right border-t border-navy/15">
+        <a class="group grid gap-3 border-b border-navy/15 py-7 sm:grid-cols-[1fr_auto] sm:items-center" href="/our-practice/meet-the-doctor/">
+          <span>
+            <span class="block text-2xl font-bold text-navy">Meet Dr. Ashworth</span>
+            <span class="mt-2 block leading-relaxed text-body">Learn about his education, Air Force service, and life beyond the practice.</span>
+          </span>
+          <span class="font-bold text-blue transition group-hover:translate-x-1" aria-hidden="true">→</span>
+        </a>
+        <a class="group grid gap-3 border-b border-navy/15 py-7 sm:grid-cols-[1fr_auto] sm:items-center" href="/our-practice/meet-the-team/">
+          <span>
+            <span class="block text-2xl font-bold text-navy">Meet the team</span>
+            <span class="mt-2 block leading-relaxed text-body">See the dental assistants, hygienists, and support professionals who care for patients.</span>
+          </span>
+          <span class="font-bold text-blue transition group-hover:translate-x-1" aria-hidden="true">→</span>
+        </a>
+        <a class="group grid gap-3 border-b border-navy/15 py-7 sm:grid-cols-[1fr_auto] sm:items-center" href="/contact/">
+          <span>
+            <span class="block text-2xl font-bold text-navy">Plan your visit</span>
+            <span class="mt-2 block leading-relaxed text-body">The office is near Fairview Road in a shared plaza with free parking.</span>
+          </span>
+          <span class="font-bold text-blue transition group-hover:translate-x-1" aria-hidden="true">→</span>
+        </a>
+        <a class="group grid gap-3 border-b border-navy/15 py-7 sm:grid-cols-[1fr_auto] sm:items-center" href="/blog/">
+          <span>
+            <span class="block text-2xl font-bold text-navy">Read the dental blog</span>
+            <span class="mt-2 block leading-relaxed text-body">Explore practical articles about home care, cosmetic options, TMD, and extractions.</span>
+          </span>
+          <span class="font-bold text-blue transition group-hover:translate-x-1" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</InteriorLayout>

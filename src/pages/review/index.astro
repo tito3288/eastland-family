@@ -1,0 +1,35 @@
+---
+import InteriorLayout from "../../layouts/InteriorLayout.astro";
+import ActionCard from "../../components/ActionCard.astro";
+import { practice } from "../../lib/practice";
+---
+
+<InteriorLayout
+  title="Leave a Review | Eastland Family Dental"
+  description="Share your experience with Eastland Family Dental on Google, Facebook, or Yelp."
+  path="/review/"
+  eyebrow="Patient feedback"
+  heading="Tell others about your visit."
+  intro="Patient feedback helps our team understand what is working well and helps other families learn what to expect from Eastland Family Dental."
+>
+  <section class="px-4 py-10 sm:py-14">
+    <div class="mx-auto max-w-7xl">
+      <div class="grid gap-5 md:grid-cols-3">
+        {practice.reviewSites.map((site, index) => (
+          <ActionCard
+            title={site.name}
+            description={`Open Eastland Family Dental’s ${site.name} listing to share your experience.`}
+            href={site.href}
+            label={`Open ${site.name}`}
+            external
+            tone={index === 0 ? "air" : index === 1 ? "sand" : "navy"}
+          />
+        ))}
+      </div>
+      <div class="reveal mt-10 border-t border-navy/15 pt-8 text-center">
+        <h2 class="font-heading text-3xl">Want to read patient experiences first?</h2>
+        <a class="mt-5 inline-flex font-bold text-blue underline decoration-blue/25 underline-offset-4" href="/review/testimonials/">Read testimonials →</a>
+      </div>
+    </div>
+  </section>
+</InteriorLayout>
