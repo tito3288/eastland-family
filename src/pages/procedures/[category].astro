@@ -20,8 +20,8 @@ const detailPages = procedureDetails.filter((item) => item.categorySlug === cate
 ---
 
 <InteriorLayout
-  title={`${category.title} | Eastland Family Dental`}
-  description={category.intro}
+  title={category.seoTitle ?? `${category.title} | Eastland Family Dental`}
+  description={category.seoDescription ?? category.intro}
   path={`/procedures/${category.slug}/`}
   eyebrow={category.eyebrow}
   heading={category.heading}

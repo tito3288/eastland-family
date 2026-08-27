@@ -6,6 +6,8 @@ export interface ProcedureItem {
 export interface ProcedureCategory {
   slug: string;
   title: string;
+  seoTitle?: string;
+  seoDescription?: string;
   shortTitle: string;
   eyebrow: string;
   heading: string;
@@ -164,9 +166,11 @@ export const procedureCategories: ProcedureCategory[] = [
   {
     slug: "endodontics",
     title: "Root Canal & Endodontic Care",
+    seoTitle: "Endodontics in Independence, MO | Eastland Family Dental",
+    seoDescription: "Our team of dentists at Eastland Family Dental proudly offer endodontics. We are located in Independence, MO. Contact our office today!",
     shortTitle: "Endodontics",
     eyebrow: "Inside the tooth",
-    heading: "Relieve infection while working to preserve the natural tooth.",
+    heading: "Endodontics in Independence, MO",
     intro: "Endodontic treatment addresses the pulp and root-canal system inside a tooth that has been damaged by deep decay, a crack, repeated treatment, or injury.",
     hubDescription: "Evaluation and treatment planning for cracked, injured, infected, or previously root-canal-treated teeth.",
     overviewTitle: "Root canal treatment is designed to save a tooth.",

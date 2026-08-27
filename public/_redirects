@@ -1,0 +1,49 @@
+# Legacy WordPress team profiles
+/team/dr-glenn-ashworth-dentist/ /our-practice/meet-the-doctor/ 301
+/team/brandi/ /our-practice/meet-the-team/ 301
+/team/diego/ /our-practice/meet-the-team/ 301
+/team/erin/ /our-practice/meet-the-team/ 301
+/team/gretchen/ /our-practice/meet-the-team/ 301
+/team/jessica-registered-dental-hygienist/ /our-practice/meet-the-team/ 301
+/team/rebecca/ /our-practice/meet-the-team/ 301
+
+# Legacy WordPress blog archives and categories
+/2024/03/ /electric-toothbrush-for-the-best-long-term-effects/ 301
+/2024/07/ /blog/ 301
+/category/cosmetic/ /procedures/cosmetic-dentistry/ 301
+/category/general/ /blog/ 301
+/category/homecare/ /procedures/cleanings-prevention/home-care/ 301
+/category/oral-surgery/ /procedures/oral-maxillofacial-surgery/ 301
+
+# Historical URLs surfaced by Google Search Console
+/eastland-landing/ / 301
+/team/ /our-practice/meet-the-team/ 301
+/cosmetic-dentistry-3/ /procedures/cosmetic-dentistry/ 301
+/left-sidebar/ /blog/ 301
+/orthodontic-clinic/ /procedures/ 301
+/author/info/ /blog/ 301
+/product/dental-tools/ /procedures/cleanings-prevention/home-care/ 301
+/product/floss-picks/ /procedures/cleanings-prevention/home-care/ 301
+/product/medical-gloves/ /procedures/cleanings-prevention/home-care/ 301
+/product/plastic-retainers/ /procedures/cleanings-prevention/home-care/ 301
+/product/comfort-series/ /procedures/cleanings-prevention/home-care/ 301
+/product/seriesqs/ /procedures/cleanings-prevention/home-care/ 301
+/product/colorful-brushes/ /procedures/cleanings-prevention/home-care/ 301
+/product/travel-set/ /procedures/cleanings-prevention/home-care/ 301
+/product/fresh-toothpaste/ /procedures/cleanings-prevention/home-care/ 301
+/product/oral-pro-600/ /procedures/cleanings-prevention/home-care/ 301
+/product/mint-floss/ /procedures/cleanings-prevention/home-care/ 301
+/product-category/seriespro/ /procedures/cleanings-prevention/home-care/ 301
+/product-tag/hygiene/ /procedures/cleanings-prevention/home-care/ 301
+/wishlist/ / 301
+
+# Legacy discovery endpoint
+/sitemap_index.xml /sitemap.xml 301
+
+# Fallbacks for legacy WordPress content not exposed in the audited inventory
+/team/* /our-practice/meet-the-team/ 301
+/category/* /blog/ 301
+/author/* /blog/ 301
+/product/* /procedures/cleanings-prevention/home-care/ 301
+/product-category/* /procedures/cleanings-prevention/home-care/ 301
+/product-tag/* /procedures/cleanings-prevention/home-care/ 301

@@ -48,6 +48,43 @@ for (const route of indexableHtmlRoutes) {
 
 const titles = new Map();
 const descriptions = new Map();
+const prioritySeo = new Map([
+  ["/", {
+    title: "Dentist Independence, MO | Eastland Family Dental | Near You",
+    description: "Eastland Family Dental is a family dentist located in Independence, MO. We are welcoming new patients, contact our team today!",
+    h1: "Dentist Independence, MO.",
+  }],
+  ["/our-practice/meet-the-doctor/", {
+    title: "Meet the Doctor: Dr. Glenn Ashworth | Eastland Family Dental",
+    description: "Meet Dr. Glenn Ashworth, dentist at Eastland Family Dental in Independence, MO.",
+    h1: "Dr. Glenn Ashworth",
+  }],
+  ["/our-practice/meet-the-team/", {
+    title: "Meet Our Team | Eastland Family Dental",
+    description: "Meet the team at Eastland Family Dental! We are your choice for a family dentist in Independence, MO. We are accepting new patients!",
+    h1: "Meet the Team at Eastland Family Dental",
+  }],
+  ["/procedures/endodontics/", {
+    title: "Endodontics in Independence, MO | Eastland Family Dental",
+    description: "Our team of dentists at Eastland Family Dental proudly offer endodontics. We are located in Independence, MO. Contact our office today!",
+    h1: "Endodontics in Independence, MO",
+  }],
+  ["/our-practice/", {
+    title: "Our Practice | Eastland Family Dental",
+    description: "Learn about Eastland Family Dental’s family-focused care, modern dental technology, and Independence, MO office.",
+    h1: "Get to Know Our Independence Family Dental Practice",
+  }],
+  ["/procedures/", {
+    title: "Dentist Independence MO | Eastland Family Dental | Procedures",
+    description: "Explore preventive, cosmetic, restorative, surgical, children’s, endodontic, and sedation dentistry at Eastland Family Dental in Independence, MO.",
+    h1: "Dental Procedures in Independence, MO",
+  }],
+  ["/contact/", {
+    title: "Contact Eastland Family Dental | Independence, MO",
+    description: "Call, email, or visit Eastland Family Dental in Independence, MO. View office hours, directions, and appointment information.",
+    h1: "Contact Eastland Family Dental",
+  }],
+]);
 
 for (const [index, url] of sitemapUrls.entries()) {
   const pathname = sitemapPaths[index];
@@ -59,6 +96,14 @@ for (const [index, url] of sitemapUrls.entries()) {
   const title = html.match(/<title>([^<]+)<\/title>/)?.[1];
   const description = html.match(/<meta name="description" content="([^"]+)"/)?.[1];
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+  const h1 = html
+    .match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/)?.[1]
+    ?.replace(/<[^>]+>/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&#39;|&apos;/g, "'")
+    .replace(/&rsquo;/g, "’")
+    .replace(/\s+/g, " ")
+    .trim();
 
   record(countMatches(html, /<title>/g) === 1, `${pathname} must have exactly one title.`);
   record(Boolean(title), `${pathname} is missing a title.`);
@@ -69,6 +114,13 @@ for (const [index, url] of sitemapUrls.entries()) {
   record(/<meta property="og:description"/.test(html), `${pathname} is missing og:description.`);
   record(/<meta property="og:image"/.test(html), `${pathname} is missing og:image.`);
   record(/<meta name="twitter:card"/.test(html), `${pathname} is missing Twitter card metadata.`);
+
+  const expectedSeo = prioritySeo.get(pathname);
+  if (expectedSeo) {
+    record(title === expectedSeo.title, `${pathname} priority title changed: ${title ?? "missing"}`);
+    record(description === expectedSeo.description, `${pathname} priority description changed: ${description ?? "missing"}`);
+    record(h1 === expectedSeo.h1, `${pathname} priority H1 changed: ${h1 ?? "missing"}`);
+  }
 
   if (title) titles.set(title, [...(titles.get(title) ?? []), pathname]);
   if (description) descriptions.set(description, [...(descriptions.get(description) ?? []), pathname]);

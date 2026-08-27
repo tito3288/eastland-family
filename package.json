@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "audit:site": "node scripts/audit-site.mjs",
+    "audit:migration": "node scripts/audit-migration.mjs",
     "preview": "astro preview",
     "preview:cloudflare": "npm run build && wrangler pages dev dist",
     "test:function": "node --test tests/appointment-function.test.mjs",
