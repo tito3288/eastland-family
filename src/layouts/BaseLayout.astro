@@ -9,6 +9,7 @@ interface Props {
   canonical?: string | false;
   image?: string;
   noindex?: boolean;
+  additionalStructuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
@@ -17,12 +18,13 @@ const {
   canonical,
   image = "/og.png",
   noindex = false,
+  additionalStructuredData,
 } = Astro.props;
 
 const siteOrigin = Astro.site ?? new URL("https://www.eastlandfamilydental.com");
 const canonicalUrl = canonical === false ? undefined : canonical ?? new URL(Astro.url.pathname, siteOrigin).toString();
 const ogImage = new URL(image, siteOrigin).toString();
-const structuredData = {
+const dentistStructuredData = {
   "@context": "https://schema.org",
   "@type": "Dentist",
   name: practice.name,
@@ -46,6 +48,14 @@ const structuredData = {
     closes: "16:30",
   },
 };
+const structuredData = [
+  dentistStructuredData,
+  ...(Array.isArray(additionalStructuredData)
+    ? additionalStructuredData
+    : additionalStructuredData
+      ? [additionalStructuredData]
+      : []),
+];
 ---
 
 <!doctype html>
@@ -76,7 +86,7 @@ const structuredData = {
     <meta name="twitter:image" content={ogImage} />
     <meta name="twitter:image:alt" content="Eastland Family Dental — Healthy smiles, cared for gently." />
     <meta name="theme-color" content={theme.colors.navy} />
-    {!noindex && <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
+    {!noindex && structuredData.map((entry) => <script is:inline type="application/ld+json" set:html={JSON.stringify(entry)} />)}
     <script is:inline>document.documentElement.classList.add("js");</script>
   </head>
   <body class="bg-porcelain text-navy font-body antialiased">

@@ -14,6 +14,7 @@ interface Props {
   heading: string;
   intro: string;
   showContactCta?: boolean;
+  additionalStructuredData?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
@@ -24,12 +25,13 @@ const {
   heading,
   intro,
   showContactCta = true,
+  additionalStructuredData,
 } = Astro.props;
 
 const canonical = new URL(path, Astro.site ?? new URL("https://www.eastlandfamilydental.com")).toString();
 ---
 
-<BaseLayout title={title} description={description} canonical={canonical}>
+<BaseLayout title={title} description={description} canonical={canonical} additionalStructuredData={additionalStructuredData}>
   <Header />
   <main id="main-content">
     <InteriorHero eyebrow={eyebrow} title={heading} intro={intro} />

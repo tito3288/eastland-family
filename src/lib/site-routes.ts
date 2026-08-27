@@ -19,6 +19,7 @@ const coreRoutes = [
   "/patient-information/referring-doctors/",
   "/pay-your-bill/",
   "/procedures/",
+  "/procedures/sedation-dentistry/",
   "/review/",
   "/review/testimonials/",
 ];
