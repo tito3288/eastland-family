@@ -11,6 +11,7 @@ interface Props {
 
 const { detail, category, related } = Astro.props;
 const path = `/procedures/${detail.categorySlug}/${detail.slug}/`;
+const showRootCanalSedationCallout = detail.categorySlug === "endodontics" && detail.slug === "root-canal-therapy";
 ---
 
 <InteriorLayout
@@ -54,6 +55,19 @@ const path = `/procedures/${detail.categorySlug}/${detail.slug}/`;
       </div>
     </div>
   </section>
+
+  {showRootCanalSedationCallout && (
+    <section class="bg-sand px-4 py-12 sm:py-16">
+      <div class="reveal mx-auto grid max-w-7xl gap-7 lg:grid-cols-[1fr_auto] lg:items-center lg:gap-16">
+        <div>
+          <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Comfort during treatment</p>
+          <h2 class="mt-4 max-w-4xl font-heading text-4xl leading-tight sm:text-5xl">Ask about sedation for root canal care.</h2>
+          <p class="mt-5 max-w-4xl text-lg leading-relaxed text-body">If anxiety makes root canal treatment difficult, ask whether sedation is appropriate for your care. Eastland Family Dental accepts Medicaid for sedation dentistry; eligibility and benefits are verified before treatment.</p>
+        </div>
+        <a class="inline-flex justify-center rounded-full bg-navy px-7 py-4 text-center font-bold text-white" href="/procedures/sedation-dentistry/">Explore Medicaid sedation dentistry</a>
+      </div>
+    </section>
+  )}
 
   <section class="bg-air px-4 py-12 sm:py-16">
     <div class="mx-auto max-w-7xl">
