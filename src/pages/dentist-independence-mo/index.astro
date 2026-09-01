@@ -1,0 +1,536 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SiteScripts from "../../components/SiteScripts.astro";
+import { practice } from "../../lib/practice";
+
+const services = [
+  {
+    title: "Dental Exams & Cleanings",
+    description: "Routine evaluations, professional cleanings, and diagnostic images selected around your current needs.",
+    callLabel: "Call about a cleaning",
+    callLocation: "service-cleanings",
+    tone: "bg-air",
+  },
+  {
+    title: "Family Dental Care",
+    description: "A welcoming dental home for children and adults, with practical guidance for every stage of a smile.",
+    callLabel: "Call for family care",
+    callLocation: "service-family",
+    tone: "bg-sand",
+    delay: "80ms",
+  },
+  {
+    title: "Restorative Dentistry",
+    description: "Crowns, bridges, implants, dentures, and other options for repairing or replacing teeth.",
+    callLabel: "Ask about restorative care",
+    callLocation: "service-restorative",
+    tone: "bg-powder",
+    delay: "160ms",
+  },
+  {
+    title: "Cosmetic Dentistry",
+    description: "Whitening, veneers, tooth-colored fillings, and ceramic restorations planned around your goals.",
+    callLabel: "Call about your smile",
+    callLocation: "service-cosmetic",
+    tone: "bg-powder",
+  },
+  {
+    title: "Root Canal Care",
+    description: "Evaluation and treatment planning for painful, cracked, injured, or infected teeth.",
+    callLabel: "Tooth hurting? Call",
+    callLocation: "service-root-canal",
+    tone: "bg-air",
+    delay: "80ms",
+  },
+  {
+    title: "Oral Surgery Evaluation",
+    description: "Thoughtful evaluation for extractions, wisdom teeth, bone grafting, and related concerns.",
+    callLabel: "Call for an evaluation",
+    callLocation: "service-oral-surgery",
+    tone: "bg-navy text-white",
+    bodyTone: "text-white/75",
+    linkTone: "text-air",
+    delay: "160ms",
+  },
+];
+
+const testimonials = [
+  {
+    quote: "“Dr. Ashworth is friendly, funny, and educates his patients well.”",
+    name: "Katie W.",
+  },
+  {
+    quote: "“All the associates and hygienists were so friendly and very efficient.”",
+    name: "Kelly Moore",
+  },
+  {
+    quote: "“Blown away by the care I received.”",
+    name: "Paige Zulauf",
+  },
+];
+
+const faqs = [
+  {
+    question: "Is Eastland Family Dental accepting new patients?",
+    answer: "Yes. Eastland Family Dental welcomes new patients, including children and adults. Call the office to request a visit and discuss the timing that works for you.",
+    callLocation: "faq-new-patients",
+  },
+  {
+    question: "How do I request a dentist appointment?",
+    answer: `Call ${practice.phoneDisplay}. A scheduling coordinator can discuss your needs and help arrange the next appropriate visit.`,
+    callLocation: "faq-appointment",
+    delay: "60ms",
+  },
+  {
+    question: "What happens during a routine dental exam and cleaning?",
+    answer: "The team evaluates your teeth, gums, bite, and existing dental work, then provides a professional cleaning. X-rays are selected when they are expected to help with diagnosis or treatment planning.",
+    delay: "120ms",
+  },
+  {
+    question: "Can the office help with dental insurance questions?",
+    answer: "Insurance details vary by plan. Call the office with your plan information and questions about expected payment. The practice also accepts cash, personal checks, debit cards, most major credit cards, and CareCredit for qualifying patients.",
+    callLocation: "faq-insurance",
+    delay: "180ms",
+  },
+  {
+    question: "Can I come in without an appointment?",
+    answer: "Calling before you arrive helps the team understand your concern and explain current availability. If something urgent comes up, contact the office as soon as you can.",
+    callLocation: "faq-urgent",
+  },
+  {
+    question: "What should I do after the office closes?",
+    answer: "Call the regular office number. An emergency answering service responds to questions and concerns after the office closes.",
+    callLocation: "faq-after-hours",
+    delay: "60ms",
+  },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<BaseLayout
+  title="Family Dentist in Independence, MO | Eastland Family Dental"
+  description="Call Eastland Family Dental for family-focused dental care in Independence, MO. New patients are welcome."
+  canonical={false}
+  noindex
+>
+  <header class="sticky inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4" aria-label="Campaign header">
+    <div class="glow mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-3xl bg-porcelain/95 px-4 py-3 backdrop-blur sm:rounded-4xl sm:px-6">
+      <a href="/" class="flex min-w-0 items-center" aria-label="Eastland Family Dental home">
+        <img
+          src="/images/eastland-logo.png"
+          alt="Eastland Family Dental"
+          width="500"
+          height="500"
+          class="h-16 w-auto max-w-[205px] object-contain sm:h-20 sm:max-w-[270px]"
+        />
+      </a>
+      <div class="flex shrink-0 items-center gap-3">
+        <a
+          href={practice.phoneHref}
+          class="efd-call hidden font-bold text-navy transition hover:text-blue md:inline-flex"
+          data-call-location="header-number"
+        >{practice.phoneDisplay}</a>
+        <a
+          href={practice.phoneHref}
+          class="efd-call inline-flex min-h-12 items-center rounded-full bg-blue px-5 py-3 text-sm font-bold text-white transition hover:bg-navy sm:px-7 sm:text-base"
+          data-call-location="header-call"
+        >Call Now</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" class="pb-24 md:pb-0">
+    <section class="relative overflow-hidden px-4 pt-10 pb-12 sm:pt-14 sm:pb-16">
+      <div class="absolute top-0 right-0 -z-10 h-[320px] w-[320px] rounded-full bg-air sm:h-[540px] sm:w-[540px]" aria-hidden="true"></div>
+      <div class="mx-auto grid max-w-7xl items-center gap-7 lg:grid-cols-[1.05fr_.8fr_.7fr]">
+        <div class="reveal reveal-left py-4 sm:py-8">
+          <p class="inline-flex rounded-full bg-sand px-4 py-2 text-xs font-bold text-navy sm:px-5 sm:text-sm">Family dentistry in Independence, MO</p>
+          <h1 id="campaign-heading" class="mt-6 font-heading text-5xl leading-[.96] tracking-tight sm:text-6xl xl:text-7xl">Dentist Near You in Independence, MO</h1>
+          <p id="campaign-lede" class="mt-5 max-w-2xl text-lg leading-relaxed text-body sm:text-xl">Comfort-minded dental care for children and adults, with clear answers and treatment planned around your needs.</p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a
+              href={practice.phoneHref}
+              class="efd-call inline-flex min-h-14 items-center justify-center rounded-full bg-blue px-8 py-4 text-center font-bold text-white transition hover:bg-navy"
+              data-call-location="hero-primary"
+            >Call {practice.phoneDisplay}</a>
+            <a href="#services" class="inline-flex min-h-14 items-center justify-center rounded-full border border-powder bg-white px-8 py-4 text-center font-bold text-navy transition hover:border-air hover:bg-air">Explore Your Care</a>
+          </div>
+          <p class="mt-4 text-sm font-semibold text-caption">New patients are welcome. Call to request an appointment.</p>
+        </div>
+
+        <img
+          src="/images/hero-dental-care.jpg"
+          alt="A relaxed patient receiving attentive dental care"
+          width="1800"
+          height="1200"
+          loading="eager"
+          decoding="async"
+          class="reveal reveal-zoom glow h-[370px] w-full rounded-t-full rounded-b-4xl object-cover sm:h-[500px] sm:rounded-b-5xl lg:h-[570px]"
+          style="--reveal-delay:120ms"
+        />
+
+        <aside class="reveal reveal-right glow rounded-4xl bg-white p-6 sm:rounded-5xl lg:p-7" style="--reveal-delay:220ms" aria-labelledby="call-card-title">
+          <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Call Eastland</p>
+          <h2 id="call-card-title" class="mt-4 font-heading text-3xl leading-tight">Let’s Find the Right Time for Your Visit.</h2>
+          <a
+            href={practice.phoneHref}
+            class="efd-call mt-6 block rounded-full bg-blue px-5 py-4 text-center text-lg font-bold text-white transition hover:bg-navy"
+            data-call-location="hero-card"
+          >{practice.phoneDisplay}</a>
+          <div class="mt-6 border-t border-powder pt-5 text-sm leading-relaxed text-body">
+            <p><b class="text-navy">Hours:</b> Monday–Thursday, 7:00 AM–4:30 PM</p>
+            <p class="mt-2"><b class="text-navy">Office:</b> Independence, MO</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="px-4 pb-10" aria-label="Practice highlights">
+      <div class="reveal mx-auto grid max-w-7xl gap-3 rounded-4xl bg-navy px-6 py-6 text-center text-sm font-bold text-white sm:grid-cols-2 sm:rounded-full lg:grid-cols-4 lg:px-10">
+        <p>Family-friendly care</p>
+        <p>New patients welcome</p>
+        <p>Comfort-minded visits</p>
+        <p>Convenient early hours</p>
+      </div>
+    </section>
+
+    <section id="services" class="px-4 py-14 sm:py-16" aria-labelledby="services-heading">
+      <div class="mx-auto max-w-7xl">
+        <div class="reveal mx-auto max-w-3xl text-center">
+          <p class="text-xs font-bold tracking-[.22em] text-eucalyptus uppercase sm:text-sm">General &amp; family dentistry</p>
+          <h2 id="services-heading" class="mt-4 font-heading text-4xl leading-tight sm:text-5xl md:text-6xl">Care for Today—and the Smile Ahead.</h2>
+          <p class="mt-5 text-lg leading-relaxed text-body">Start with a conversation. The team can help you understand the right kind of visit for your needs.</p>
+        </div>
+
+        <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {services.map((service) => (
+            <article
+              class:list={["reveal flex min-h-[220px] flex-col rounded-4xl p-6 sm:rounded-5xl sm:p-7", service.tone]}
+              style={service.delay ? `--reveal-delay:${service.delay}` : undefined}
+            >
+              <h3 class="text-2xl font-bold leading-tight">{service.title}</h3>
+              <p class:list={["mt-3 flex-1 leading-relaxed", service.bodyTone ?? "text-body"]}>{service.description}</p>
+              <a
+                href={practice.phoneHref}
+                class:list={["efd-call mt-6 inline-flex min-h-12 items-center font-bold underline decoration-current/20 underline-offset-4", service.linkTone ?? "text-blue"]}
+                data-call-location={service.callLocation}
+              >{service.callLabel} <span class="ml-2" aria-hidden="true">→</span></a>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 py-8 sm:py-10" aria-labelledby="first-call-band-heading">
+      <div class="reveal reveal-zoom mx-auto grid max-w-7xl items-center gap-6 rounded-4xl bg-blue px-7 py-8 text-white sm:rounded-6xl sm:px-10 sm:py-10 lg:grid-cols-[1fr_auto] lg:px-14">
+        <div>
+          <p class="text-xs font-bold tracking-[.2em] text-white/75 uppercase">Ready to talk with the team?</p>
+          <h2 id="first-call-band-heading" class="mt-3 font-heading text-3xl leading-tight sm:text-5xl">A Better Visit Starts With One Call.</h2>
+          <p class="mt-3 max-w-3xl text-white/80">Tell the scheduling team what you need, and they’ll help you plan the next step.</p>
+        </div>
+        <a
+          href={practice.phoneHref}
+          class="efd-call inline-flex min-h-14 items-center justify-center rounded-full bg-white px-8 py-4 text-center text-lg font-bold text-navy transition hover:bg-navy hover:text-white"
+          data-call-location="band-after-services"
+        >Call {practice.phoneDisplay}</a>
+      </div>
+    </section>
+
+    <section class="px-4 py-14 sm:py-16" aria-labelledby="near-you-heading">
+      <div class="mx-auto grid max-w-7xl items-center gap-8 lg:grid-cols-[.92fr_1.08fr] lg:gap-16">
+        <div class="reveal reveal-left relative pb-14 sm:pb-8">
+          <img
+            src="/images/story-family-dentistry.jpg"
+            alt="A welcoming family dentistry visit"
+            width="1800"
+            height="1200"
+            loading="lazy"
+            decoding="async"
+            class="glow h-[390px] w-full rounded-4xl object-cover sm:h-[540px] sm:rounded-5xl"
+          />
+          <div class="absolute right-4 bottom-0 max-w-[280px] rounded-4xl border-8 border-porcelain bg-white p-5 shadow-2xl shadow-navy/15 sm:right-7 sm:-bottom-5 sm:max-w-xs sm:p-6">
+            <p class="text-xs font-bold tracking-[.18em] text-eucalyptus uppercase">Easy to find</p>
+            <p class="mt-2 font-heading text-2xl leading-tight">Just off East US Highway 40 in Independence.</p>
+          </div>
+        </div>
+
+        <div class="reveal reveal-right" style="--reveal-delay:100ms">
+          <p class="text-xs font-bold tracking-[.22em] text-eucalyptus uppercase sm:text-sm">A dentist near you</p>
+          <h2 id="near-you-heading" class="mt-4 font-heading text-4xl leading-tight sm:text-5xl md:text-6xl">A Dental Home That Feels Calm, Clear, and Personal.</h2>
+          <p class="mt-6 text-lg leading-relaxed text-body">Eastland Family Dental provides preventive, restorative, cosmetic, surgical, and comfort-focused care for children and adults in Independence, Missouri.</p>
+          <div class="mt-8 grid gap-4 sm:grid-cols-2">
+            <article class="glow rounded-4xl bg-white p-6">
+              <p class="text-xs font-bold tracking-[.18em] text-blue uppercase">Clear choices</p>
+              <h3 class="mt-3 text-xl font-bold">Understand your options.</h3>
+              <p class="mt-2 text-sm leading-relaxed text-body">Recommendations are explained with attention to your goals, comfort, and clinical needs.</p>
+            </article>
+            <article class="glow rounded-4xl bg-white p-6">
+              <p class="text-xs font-bold tracking-[.18em] text-blue uppercase">Modern care</p>
+              <h3 class="mt-3 text-xl font-bold">Technology with a purpose.</h3>
+              <p class="mt-2 text-sm leading-relaxed text-body">Digital imaging, CBCT, and same-day CEREC capabilities help support thoughtful planning.</p>
+            </article>
+          </div>
+          <a
+            href={practice.phoneHref}
+            class="efd-call mt-8 inline-flex min-h-14 items-center justify-center rounded-full bg-navy px-8 py-4 text-center font-bold text-white transition hover:bg-blue"
+            data-call-location="near-you"
+          >Call to Request a Visit</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-air px-4 py-14 sm:py-16" aria-labelledby="reviews-heading">
+      <div class="mx-auto max-w-7xl">
+        <div class="reveal grid gap-5 lg:grid-cols-[.72fr_1.28fr] lg:items-end">
+          <div>
+            <p class="text-xs font-bold tracking-[.22em] text-eucalyptus uppercase sm:text-sm">Patient words</p>
+            <h2 id="reviews-heading" class="mt-4 font-heading text-4xl leading-tight sm:text-5xl">Kind, Clear, and Family-Focused.</h2>
+          </div>
+          <p class="max-w-2xl text-lg leading-relaxed text-body lg:justify-self-end">Published patient testimonials reflect the welcoming care people remember after a visit.</p>
+        </div>
+
+        <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {testimonials.map((testimonial, index) => (
+            <article class="reveal glow flex min-h-64 flex-col rounded-4xl bg-white p-6 sm:rounded-5xl sm:p-7" style={`--reveal-delay:${index * 70}ms`}>
+              <p class="text-xs font-bold tracking-[.18em] text-blue uppercase">Published testimonial</p>
+              <blockquote class="mt-5 flex-1 font-heading text-2xl leading-relaxed text-navy">{testimonial.quote}</blockquote>
+              <p class="mt-6 font-semibold text-caption">{testimonial.name}</p>
+            </article>
+          ))}
+          <article class="reveal flex min-h-64 flex-col justify-between rounded-4xl bg-navy p-6 text-white sm:rounded-5xl sm:p-7" style="--reveal-delay:210ms">
+            <div>
+              <p class="text-xs font-bold tracking-[.18em] text-air uppercase">New here?</p>
+              <h3 class="mt-5 font-heading text-3xl leading-tight">Your First Conversation Can Be Simple.</h3>
+            </div>
+            <a
+              href={practice.phoneHref}
+              class="efd-call mt-7 inline-flex min-h-12 items-center font-bold text-air underline decoration-air/25 underline-offset-4"
+              data-call-location="reviews-cta"
+            >Call the team <span class="ml-2" aria-hidden="true">→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 py-14 sm:py-16" aria-labelledby="doctor-heading">
+      <div class="mx-auto grid max-w-7xl items-center gap-9 lg:grid-cols-[.68fr_1.32fr] lg:gap-16">
+        <figure class="reveal reveal-left overflow-hidden rounded-t-full rounded-b-4xl bg-air sm:rounded-b-6xl">
+          <img
+            src="/images/team/glenn-ashworth.webp"
+            alt="Dr. Glenn Ashworth"
+            width="500"
+            height="500"
+            loading="lazy"
+            decoding="async"
+            class="aspect-square h-auto w-full object-cover"
+          />
+        </figure>
+        <div class="reveal reveal-right">
+          <p class="text-xs font-bold tracking-[.22em] text-eucalyptus uppercase sm:text-sm">Meet Dr. Glenn Ashworth</p>
+          <h2 id="doctor-heading" class="mt-4 font-heading text-4xl leading-tight sm:text-5xl md:text-6xl">Practical Education. Comfortable, Family-Focused Care.</h2>
+          <p class="mt-6 max-w-3xl text-lg leading-relaxed text-body">Dr. Ashworth is a general dentist, Air Force veteran, and father of six. His technical training and service shape a careful approach to explaining treatment and caring for the person behind the procedure.</p>
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a
+              href={practice.phoneHref}
+              class="efd-call inline-flex min-h-14 items-center justify-center rounded-full bg-blue px-8 py-4 text-center font-bold text-white transition hover:bg-navy"
+              data-call-location="doctor"
+            >Call to Meet the Team</a>
+            <a href="/our-practice/meet-the-doctor/" class="inline-flex min-h-14 items-center justify-center rounded-full border border-powder bg-white px-8 py-4 text-center font-bold text-navy transition hover:bg-air">More About Dr. Ashworth</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 py-8 sm:py-10" aria-labelledby="sedation-heading">
+      <div class="reveal reveal-zoom mx-auto grid max-w-7xl overflow-hidden rounded-4xl bg-sand sm:rounded-6xl lg:grid-cols-[1.16fr_.84fr]">
+        <div class="p-7 sm:p-10 lg:p-14">
+          <p class="text-xs font-bold tracking-[.22em] text-eucalyptus uppercase sm:text-sm">Comfort options</p>
+          <h2 id="sedation-heading" class="mt-4 max-w-3xl font-heading text-4xl leading-tight sm:text-5xl md:text-6xl">Nervous About the Dentist? You’re Not Alone.</h2>
+          <p class="mt-5 max-w-3xl text-lg leading-relaxed text-body">The team takes a calm, reassuring approach. Nitrous oxide is available for children and adults when appropriate, and a board-eligible anesthesiologist supports carefully planned sedation care.</p>
+          <a
+            href={practice.phoneHref}
+            class="efd-call mt-7 inline-flex min-h-14 items-center justify-center rounded-full bg-blue px-8 py-4 text-center font-bold text-white transition hover:bg-navy"
+            data-call-location="sedation"
+          >Ask About Comfort Options</a>
+        </div>
+        <div class="relative flex min-h-72 items-end overflow-hidden bg-navy p-7 text-white sm:p-10 lg:min-h-full">
+          <div class="absolute -top-20 -right-20 h-64 w-64 rounded-full border-[3rem] border-white/10" aria-hidden="true"></div>
+          <div class="absolute top-12 left-9 h-24 w-24 rounded-full bg-air/20" aria-hidden="true"></div>
+          <div class="relative max-w-sm rounded-4xl bg-white p-6 text-navy shadow-xl shadow-navy/20 sm:p-7">
+            <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Planned around you</p>
+            <p class="mt-3 font-heading text-2xl leading-snug sm:text-3xl">Your health history, medications, treatment, and comfort needs guide every recommendation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 py-14 sm:py-16" aria-labelledby="new-patients-heading">
+      <div class="mx-auto grid max-w-7xl items-center gap-8 rounded-4xl bg-powder p-6 sm:rounded-6xl sm:p-10 lg:grid-cols-[1fr_.72fr] lg:p-14">
+        <div class="reveal reveal-left">
+          <p class="text-xs font-bold tracking-[.22em] text-eucalyptus uppercase sm:text-sm">New patients welcome</p>
+          <h2 id="new-patients-heading" class="mt-4 font-heading text-4xl leading-tight sm:text-5xl">Start With the Questions You Have Today.</h2>
+          <p class="mt-5 max-w-3xl text-lg leading-relaxed text-body">Call to discuss the reason for your visit, insurance questions, payment options, and what to bring. The team will help you understand the next step.</p>
+          <ul class="mt-7 grid gap-3 text-sm font-semibold text-navy sm:grid-cols-2" aria-label="New patient highlights">
+            <li class="rounded-full bg-white px-5 py-3">Children and adults welcome</li>
+            <li class="rounded-full bg-white px-5 py-3">Monday–Thursday early hours</li>
+            <li class="rounded-full bg-white px-5 py-3">CareCredit available for qualifying patients</li>
+            <li class="rounded-full bg-white px-5 py-3">Insurance questions handled by phone</li>
+          </ul>
+          <a
+            href={practice.phoneHref}
+            class="efd-call mt-8 inline-flex min-h-14 items-center justify-center rounded-full bg-navy px-8 py-4 text-center font-bold text-white transition hover:bg-blue"
+            data-call-location="new-patients"
+          >Call {practice.phoneDisplay}</a>
+        </div>
+        <img
+          src="/images/smile-detail.jpg"
+          alt="A bright, healthy smile"
+          width="1800"
+          height="1200"
+          loading="lazy"
+          decoding="async"
+          class="reveal reveal-right glow h-[320px] w-full rounded-t-full rounded-b-4xl object-cover sm:h-[430px] sm:rounded-b-5xl"
+          style="--reveal-delay:100ms"
+        />
+      </div>
+    </section>
+
+    <section id="faq" class="px-4 py-14 sm:py-16" aria-labelledby="faq-heading">
+      <div class="mx-auto max-w-4xl">
+        <div class="reveal text-center">
+          <p class="text-xs font-bold tracking-[.22em] text-eucalyptus uppercase sm:text-sm">Before your first call</p>
+          <h2 id="faq-heading" class="mt-4 font-heading text-4xl leading-tight sm:text-5xl md:text-6xl">Helpful Answers, Right Up Front.</h2>
+        </div>
+        <div class="mt-10 space-y-3">
+          {faqs.map((item) => (
+            <details class="reveal glow group rounded-3xl bg-white p-5 sm:p-6" style={item.delay ? `--reveal-delay:${item.delay}` : undefined}>
+              <summary class="flex min-h-8 cursor-pointer list-none items-center justify-between gap-4 font-bold text-navy">
+                <span>{item.question}</span>
+                <span class="text-2xl text-blue transition group-open:rotate-45" aria-hidden="true">+</span>
+              </summary>
+              <p class="mt-4 leading-relaxed text-body">{item.answer}</p>
+              {item.callLocation && (
+                <a
+                  href={practice.phoneHref}
+                  class="efd-call mt-4 inline-flex min-h-11 items-center font-bold text-blue underline decoration-blue/25 underline-offset-4"
+                  data-call-location={item.callLocation}
+                >Call {practice.phoneDisplay}</a>
+              )}
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="px-4 py-12 sm:py-16" aria-labelledby="contact-heading">
+      <div class="reveal reveal-zoom mx-auto grid max-w-7xl overflow-hidden rounded-4xl bg-navy text-white sm:rounded-6xl lg:grid-cols-[1.08fr_.92fr]">
+        <div class="p-7 sm:p-10 lg:p-14">
+          <p class="text-xs font-bold tracking-[.22em] text-air uppercase sm:text-sm">Eastland Family Dental</p>
+          <h2 id="contact-heading" class="mt-4 font-heading text-4xl leading-tight sm:text-5xl md:text-6xl">Call When You’re Ready to Take the Next Step.</h2>
+          <p class="mt-5 max-w-2xl text-lg leading-relaxed text-white/75">Whether you need a routine cleaning, have a specific concern, or are looking for a new dental home, the team is ready to listen.</p>
+          <a
+            href={practice.phoneHref}
+            class="efd-call mt-8 inline-flex min-h-14 items-center justify-center rounded-full bg-blue px-8 py-4 text-center text-lg font-bold text-white transition hover:bg-white hover:text-navy"
+            data-call-location="contact-primary"
+          >Call {practice.phoneDisplay}</a>
+        </div>
+
+        <div class="m-4 rounded-4xl bg-white p-6 text-navy sm:m-6 sm:rounded-5xl sm:p-8 lg:m-8">
+          <p class="text-xs font-bold tracking-[.2em] text-eucalyptus uppercase">Office details</p>
+          <address class="mt-4 text-lg leading-relaxed not-italic text-body">
+            <strong class="text-navy">{practice.name}</strong><br />
+            {practice.address.street}<br />
+            {practice.address.cityStateZip}
+          </address>
+          <a class="mt-4 inline-flex min-h-11 items-center font-bold text-blue underline decoration-blue/25 underline-offset-4" href={practice.mapsUrl} target="_blank" rel="noopener noreferrer">Open in Google Maps <span class="ml-2" aria-hidden="true">↗</span></a>
+          <div class="mt-6 border-t border-powder pt-6">
+            <h3 class="font-bold">Office hours</h3>
+            <dl class="mt-3 space-y-2 text-sm text-body">
+              {practice.hours.map((item) => (
+                <div class="flex justify-between gap-4">
+                  <dt>{item.days}</dt>
+                  <dd class="text-right font-semibold text-navy">{item.hours}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mx-4 mb-4 rounded-4xl bg-sand px-6 py-8 sm:rounded-5xl sm:px-8 md:mb-8">
+    <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-5 text-center sm:flex-row sm:text-left">
+      <a href="/" aria-label="Eastland Family Dental home">
+        <img src="/images/eastland-logo.png" alt="Eastland Family Dental" width="500" height="500" loading="lazy" decoding="async" class="h-20 w-auto max-w-[260px] object-contain" />
+      </a>
+      <div class="text-sm leading-relaxed text-body sm:text-right">
+        <p>© {currentYear} {practice.name}. All rights reserved.</p>
+        <p>Family dental care in Independence, Missouri.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="fixed inset-x-0 bottom-0 z-50 border-t border-white/20 bg-navy px-3 pt-3 shadow-[0_-12px_36px_rgba(2,58,102,.22)] md:hidden" style="padding-bottom:calc(.75rem + env(safe-area-inset-bottom))">
+    <a
+      href={practice.phoneHref}
+      class="efd-call flex min-h-14 items-center justify-center rounded-full bg-blue px-6 py-4 text-center font-bold text-white"
+      data-call-location="sticky-mobile"
+    >Call {practice.phoneDisplay}</a>
+  </div>
+
+  <script>
+    const keywordVariants: Record<string, { heading: string; lede: string }> = {
+      "near-me": {
+        heading: "Dentist Near You in Independence, MO",
+        lede: "Comfort-minded dental care for children and adults, with clear answers and treatment planned around your needs.",
+      },
+      cleaning: {
+        heading: "Teeth Cleaning in Independence, MO",
+        lede: "Call to request a dental exam and professional cleaning shaped around your current oral health and diagnostic needs.",
+      },
+      "new-patient": {
+        heading: "Now Welcoming New Patients in Independence, MO",
+        lede: "Looking for a new dental home? Start with a simple phone call and a team ready to understand what you need.",
+      },
+      appointment: {
+        heading: "Request a Dentist Appointment in Independence, MO",
+        lede: "Call Eastland Family Dental to discuss your needs and find the right next visit for you or your family.",
+      },
+      exam: {
+        heading: "Dental Exams in Independence, MO",
+        lede: "A thoughtful exam can help you understand your oral health, your options, and the right next step.",
+      },
+      general: {
+        heading: "General & Family Dentist in Independence, MO",
+        lede: "Preventive, restorative, cosmetic, surgical, and comfort-focused dentistry for children and adults.",
+      },
+    };
+
+    const keyword = new URLSearchParams(window.location.search).get("kw");
+    const variant = keyword ? keywordVariants[keyword] : undefined;
+    const heading = document.getElementById("campaign-heading");
+    const lede = document.getElementById("campaign-lede");
+
+    if (variant && heading && lede) {
+      heading.textContent = variant.heading;
+      lede.textContent = variant.lede;
+    }
+
+    const analyticsWindow = window as Window & { dataLayer?: Record<string, unknown>[] };
+
+    document.querySelectorAll<HTMLAnchorElement>(".efd-call").forEach((link) => {
+      link.addEventListener("click", () => {
+        analyticsWindow.dataLayer = analyticsWindow.dataLayer ?? [];
+        analyticsWindow.dataLayer.push({
+          event: "phone_call_click",
+          call_location: link.dataset.callLocation ?? "unknown",
+          phone_number: "8167957007",
+        });
+      });
+    });
+  </script>
+
+  <SiteScripts />
+</BaseLayout>

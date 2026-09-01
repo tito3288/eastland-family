@@ -38,7 +38,10 @@ const htmlByRoute = new Map(htmlFiles.map((file) => [routeForFile(file), fs.read
 const sitemap = fs.readFileSync(path.join(outputRoot, "sitemap.xml"), "utf8");
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
 const sitemapPaths = sitemapUrls.map((url) => new URL(url).pathname);
-const indexableHtmlRoutes = [...htmlByRoute.keys()].filter((route) => route !== "/404.html");
+const hasNoindexDirective = (html) => /<meta\b[^>]*\bname=["']robots["'][^>]*\bcontent=["'][^"']*\bnoindex\b/i.test(html);
+const indexableHtmlRoutes = [...htmlByRoute.entries()]
+  .filter(([route, html]) => route !== "/404.html" && !hasNoindexDirective(html))
+  .map(([route]) => route);
 
 record(sitemapUrls.length === indexableHtmlRoutes.length, `Expected ${indexableHtmlRoutes.length} sitemap URLs; found ${sitemapUrls.length}.`);
 record(new Set(sitemapUrls).size === sitemapUrls.length, "The sitemap contains duplicate URLs.");
